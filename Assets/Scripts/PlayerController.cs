@@ -32,10 +32,6 @@ public class PlayerController : MonoBehaviour
             }
             return;
         }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            GameManager.Instance.Swap();
-        }
         MovePlayer();
         MoveCamera();
     }
