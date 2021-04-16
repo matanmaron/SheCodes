@@ -1,29 +1,36 @@
-using Shecodes.Enums;
+using Shecodes.Managers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Shecodes.Managers
+public class UIManager : MonoBehaviour
 {
-    public class UIManager : MonoBehaviour
+    [SerializeField] Button BtnExit;
+    [SerializeField] Button BtnReset;
+    [SerializeField] TextMeshProUGUI TmpSteps;
+
+    void Start()
     {
-        [SerializeField] Button BtnLeft;
-        [SerializeField] Button BtnRight;
-        [SerializeField] Button BtnUp;
-        [SerializeField] Button BtnDown;
+        BtnExit.onClick.AddListener(OnExit);
+        BtnReset.onClick.AddListener(OnReset);
+    }
 
-        void Start()
-        {
-            BtnLeft.onClick.AddListener(delegate { OnBuittonClick(Direction.Left); });
-            BtnRight.onClick.AddListener(delegate { OnBuittonClick(Direction.Right); });
-            BtnUp.onClick.AddListener(delegate { OnBuittonClick(Direction.Up); });
-            BtnDown.onClick.AddListener(delegate { OnBuittonClick(Direction.Down); });
-        }
+    private void OnReset()
+    {
+        GameManager.Instance.ResetLevel();
+    }
 
-        void OnBuittonClick(Direction direction)
-        {
-            GameManager.Instance.MovePlayer(direction);
-        }
+    private void OnExit()
+    {
+        GameManager.Instance.LoadLevel(0);
+    }
+
+    internal void SetSteps(int number)
+    {
+        TmpSteps.text = number.ToString();
     }
 }

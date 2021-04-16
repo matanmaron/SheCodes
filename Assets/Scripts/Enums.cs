@@ -1,4 +1,4 @@
-namespace Shecodes.Enums
+namespace Shecodes.Frame
 {
     public enum Direction
     {
