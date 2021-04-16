@@ -1,29 +1,50 @@
+using Shecodes.Enums;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Shecodes.Managers
 {
-    #region singletone
-    private static GameManager _instance;
-    public static GameManager Instance { get { return _instance; } }
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        if (_instance != null && _instance != this)
+        #region singletone
+        private static GameManager _instance;
+        public static GameManager Instance { get { return _instance; } }
+        private void Awake()
         {
-            Destroy(this.gameObject);
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+            }
         }
-        else
+        #endregion
+
+        [SerializeField] Transform Player;
+
+        internal void MovePlayer(Direction direction)
         {
-            _instance = this;
+            switch (direction)
+            {
+                case Direction.Left:
+                    Player.position += Vector3.left;
+                    break;
+                case Direction.Right:
+                    Player.position += Vector3.right;
+                    break;
+                case Direction.Up:
+                    Player.position += Vector3.up;
+                    break;
+                case Direction.Down:
+                    Player.position += Vector3.down;
+                    break;
+                default:
+                    break;
+            }
         }
     }
-    #endregion
-
-    [SerializeField] Transform PlayerCamera = null;
-    [SerializeField] Transform Player = null;
-    internal bool IsPlayerActive = true;
-
-
 }
