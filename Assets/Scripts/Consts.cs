@@ -4,5 +4,6 @@ namespace Shecodes.Frame
     {
         public static readonly string LEVEL_SELECTOR = "LevelSelector";
         public static readonly string LEVEL = "Level";
+        public static readonly string GOAL = "Goal";
     }
 }

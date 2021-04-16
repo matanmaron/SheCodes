@@ -24,22 +24,31 @@ namespace Shecodes.Managers
         }
         #endregion
 
+        [SerializeField] UIManager UIManager;
         [SerializeField] Transform Player;
         private GameObject currentLevel;
         private int currentLevelNumber;
+        private int maxSteps;
 
         private void Start()
         {
             currentLevel = Instantiate(Resources.Load(Consts.LEVEL_SELECTOR) as GameObject);
         }
 
-        internal void ResetPlayer()
+        internal void SetPlayer(int x, int y)
         {
             if (Player != null)
             {
-                Player.position = Vector3.zero;
+                Player.position = new Vector3(x, y, 0);
             }
         }
+
+        internal void SetSteps(int stemps)
+        {
+            maxSteps = stemps;
+            UIManager.SetSteps(maxSteps);
+        }
+
         internal void ResetLevel()
         {
             LoadLevel(currentLevelNumber);
@@ -56,7 +65,6 @@ namespace Shecodes.Managers
             {
                 currentLevel = Instantiate(Resources.Load($"{Consts.LEVEL}{number}") as GameObject);
             }
-            ResetPlayer();
             currentLevelNumber = number;
         }
 
@@ -81,8 +89,25 @@ namespace Shecodes.Managers
                     default:
                         break;
                 }
+                maxSteps--;
+                if (maxSteps == 0)
+                {
+                    GameOver();
+                }
+                UIManager.SetSteps(maxSteps);
             }
         }
+
+        internal void YouWin()
+        {
+            UIManager.YouWin();
+        }
+
+        private void GameOver()
+        {
+            UIManager.GameOver();
+        }
+
         internal bool CanMove(Direction direction)
         {
             switch (direction)

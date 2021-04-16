@@ -7,30 +7,61 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+namespace Shecodes.Managers
 {
-    [SerializeField] Button BtnExit;
-    [SerializeField] Button BtnReset;
-    [SerializeField] TextMeshProUGUI TmpSteps;
-
-    void Start()
+    public class UIManager : MonoBehaviour
     {
-        BtnExit.onClick.AddListener(OnExit);
-        BtnReset.onClick.AddListener(OnReset);
-    }
+        [SerializeField] Button BtnExit;
+        [SerializeField] Button BtnNext;
+        [SerializeField] Button BtnReset;
+        [SerializeField] Button BtnResetOver;
+        [SerializeField] TextMeshProUGUI TmpSteps;
+        [SerializeField] GameObject GameOverPanel;
+        [SerializeField] GameObject WinPanel;
 
-    private void OnReset()
-    {
-        GameManager.Instance.ResetLevel();
-    }
+        void Start()
+        {
+            BtnExit.onClick.AddListener(OnExit);
+            BtnNext.onClick.AddListener(OnWin);
+            BtnReset.onClick.AddListener(OnReset);
+            BtnResetOver.onClick.AddListener(OnResetOver);
+        }
 
-    private void OnExit()
-    {
-        GameManager.Instance.LoadLevel(0);
-    }
+        private void OnResetOver()
+        {
+            GameOverPanel.SetActive(false);
+            GameManager.Instance.ResetLevel();
+        }
 
-    internal void SetSteps(int number)
-    {
-        TmpSteps.text = number.ToString();
+        private void OnReset()
+        {
+            GameManager.Instance.ResetLevel();
+        }
+
+        private void OnWin()
+        {
+            WinPanel.SetActive(false);
+            OnExit();
+        }
+
+        private void OnExit()
+        {
+            GameManager.Instance.LoadLevel(0);
+        }
+
+        internal void SetSteps(int number)
+        {
+            TmpSteps.text = number.ToString();
+        }
+
+        internal void GameOver()
+        {
+            GameOverPanel.SetActive(true);
+        }
+
+        internal void YouWin()
+        {
+            WinPanel.SetActive(true);
+        }
     }
 }
