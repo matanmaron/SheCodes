@@ -11,12 +11,12 @@ namespace Shecodes.Levels
     {
         [SerializeField] Button ButtonDown;
         [SerializeField] Button ButtonRight;
-        [SerializeField] int MaxStemps;
+        [SerializeField] int MaxSteps;
 
         void Start()
         {
             GameManager.Instance.SetPlayer(-7, 3);
-            GameManager.Instance.SetSteps(MaxStemps);
+            GameManager.Instance.SetSteps(MaxSteps);
             ButtonDown.onClick.AddListener(OnButtonClickDown);
             ButtonRight.onClick.AddListener(OnButtonClickRight);
         }
