@@ -26,6 +26,7 @@ namespace Shecodes.Managers
 
         [SerializeField] UIManager UIManager;
         [SerializeField] Transform Player;
+        [SerializeField] Transform Goal;
         private GameObject currentLevel;
         private int currentLevelNumber;
         private int maxSteps;
@@ -40,6 +41,14 @@ namespace Shecodes.Managers
             if (Player != null)
             {
                 Player.position = new Vector3(x, y, 0);
+            }
+        }
+
+        internal void SetGoal(int x, int y)
+        {
+            if (Goal != null)
+            {
+                Goal.position = new Vector3(x, y, 0);
             }
         }
 

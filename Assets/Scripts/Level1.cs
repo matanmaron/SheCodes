@@ -16,6 +16,7 @@ namespace Shecodes.Levels
         void Start()
         {
             GameManager.Instance.SetPlayer(-7, 3);
+            GameManager.Instance.SetGoal(0,0);
             GameManager.Instance.SetSteps(MaxSteps);
             ButtonDown.onClick.AddListener(OnButtonClickDown);
             ButtonRight.onClick.AddListener(OnButtonClickRight);
