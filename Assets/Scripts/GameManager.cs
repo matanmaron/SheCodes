@@ -42,7 +42,7 @@ namespace Shecodes.Managers
         {
             if (Player != null)
             {
-                Player.position = new Vector3(x, y, -1);
+                Player.position = new Vector3(x, y, -5);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Shecodes.Managers
         {
             if (Goal != null)
             {
-                Goal.position = new Vector3(x, y, -1);
+                Goal.position = new Vector3(x, y, -5);
             }
         }
 

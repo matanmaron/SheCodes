@@ -6,5 +6,6 @@ namespace Shecodes.Frame
         public static readonly string LEVEL = "Level";
         public static readonly string GOAL = "Goal";
         public static readonly string FREESPOT = "Free";
+        public static readonly string BLOCK = "Block";
     }
 }
