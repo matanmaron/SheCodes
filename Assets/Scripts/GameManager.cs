@@ -30,6 +30,8 @@ namespace Shecodes.Managers
         private GameObject currentLevel;
         private int currentLevelNumber;
         private int maxSteps;
+        private Vector3 prevPosition;
+        bool gameOver = true;
 
         private void Start()
         {
@@ -40,7 +42,7 @@ namespace Shecodes.Managers
         {
             if (Player != null)
             {
-                Player.position = new Vector3(x, y, 0);
+                Player.position = new Vector3(x, y, -1);
             }
         }
 
@@ -48,7 +50,7 @@ namespace Shecodes.Managers
         {
             if (Goal != null)
             {
-                Goal.position = new Vector3(x, y, 0);
+                Goal.position = new Vector3(x, y, -1);
             }
         }
 
@@ -75,70 +77,65 @@ namespace Shecodes.Managers
                 currentLevel = Instantiate(Resources.Load($"{Consts.LEVEL}{number}") as GameObject);
             }
             currentLevelNumber = number;
+            gameOver = false;
         }
 
         internal void MovePlayer(Direction direction)
         {
-            if (CanMove(direction))
+            if (gameOver)
             {
-                switch (direction)
-                {
-                    case Direction.Left:
-                        Player.position += Vector3.left;
-                        break;
-                    case Direction.Right:
-                        Player.position += Vector3.right;
-                        break;
-                    case Direction.Up:
-                        Player.position += Vector3.up;
-                        break;
-                    case Direction.Down:
-                        Player.position += Vector3.down;
-                        break;
-                    default:
-                        break;
-                }
-                maxSteps--;
-                if (maxSteps == 0)
-                {
-                    GameOver();
-                }
-                UIManager.SetSteps(maxSteps);
+                return;
             }
-        }
-
-        internal void YouWin()
-        {
-            UIManager.YouWin();
-        }
-
-        private void GameOver()
-        {
-            UIManager.GameOver();
-        }
-
-        internal bool CanMove(Direction direction)
-        {
+            Debug.Log("[Move] Player Moving");
+            prevPosition = Player.position;
             switch (direction)
             {
                 case Direction.Left:
+                    Player.position += Vector3.left;
+                    break;
                 case Direction.Right:
-                    if (Mathf.Abs(Player.position.y)<4)
-                    {
-                        return true;
-                    }
+                    Player.position += Vector3.right;
                     break;
                 case Direction.Up:
+                    Player.position += Vector3.up;
+                    break;
                 case Direction.Down:
-                    if (Mathf.Abs(Player.position.x) < 8)
-                    {
-                        return true;
-                    }
+                    Player.position += Vector3.down;
                     break;
                 default:
                     break;
             }
-            return false;
+        }
+
+        internal void GoBack()
+        {
+            Debug.Log("[Move] Can't Move, Go Back");
+            Player.position = prevPosition;
+        }
+
+        internal void MoveSuccessful()
+        {
+            Debug.Log("[Move] Move Successful");
+            maxSteps--;
+            if (maxSteps == 0)
+            {
+                GameOverLose();
+            }
+            UIManager.SetSteps(maxSteps);
+        }
+
+        internal void GameOverWin()
+        {
+            Debug.Log("[Game] Game Over Win");
+            gameOver = true;
+            UIManager.YouWin();
+        }
+
+        private void GameOverLose()
+        {
+            Debug.Log("[Game] Game Over Lose");
+            gameOver = true;
+            UIManager.GameOver();
         }
     }
 }
