@@ -27,6 +27,8 @@ namespace Shecodes.Elements
 
         internal void ToggleGate(bool isopen)
         {
+            string status = isopen ? "Open" : "Closed";
+            Debug.Log($"Gate is now {status}");
             IsOpened = isopen;
             GetSprite();
         }

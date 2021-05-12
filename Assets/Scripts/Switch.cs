@@ -23,13 +23,23 @@ namespace Shecodes.Elements
         private void GetSprite()
         {
             spriteRenderer.sprite = IsOn ? On : Off;
-            LinkedGate.ToggleGate(IsOn);
         }
 
         internal void ToggleSwitch(bool ison)
         {
+            string status = ison ? "On" : "Off";
+            Debug.Log($"Switch is now {status}");
             IsOn = ison;
             GetSprite();
+            LinkedGate.ToggleGate(IsOn);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.tag == Consts.PLAYER)
+            {
+                ToggleSwitch(!IsOn);
+            }
         }
     }
 }
