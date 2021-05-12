@@ -80,6 +80,20 @@ namespace Shecodes.Managers
             gameOver = false;
         }
 
+        internal void ForMovePlayer(Direction direction, int Steps)
+        {
+            if (gameOver)
+            {
+                return;
+            }
+            Debug.Log("[Move] Player Moving");
+            prevPosition = Player.position;
+            for (int i = 0; i < Steps; i++)
+            {
+                Move(direction);
+            }
+        }
+
         internal void MovePlayer(Direction direction)
         {
             if (gameOver)
@@ -88,6 +102,11 @@ namespace Shecodes.Managers
             }
             Debug.Log("[Move] Player Moving");
             prevPosition = Player.position;
+            Move(direction);
+        }
+
+        private void Move(Direction direction)
+        {
             switch (direction)
             {
                 case Direction.Left:
