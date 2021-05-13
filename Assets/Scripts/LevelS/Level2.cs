@@ -19,9 +19,8 @@ namespace Shecodes.Levels
         [SerializeField] int MaxSteps;
         [SerializeField] Vector2Int PlayerPosition;
         [SerializeField] Vector2Int GoalPosition;
-        [SerializeField] Vector2Int ForRange;
-
-        private int forInt = 0;
+        [SerializeField] List<int> ForRange;
+        int forIndex = 0;
 
         void Start()
         {
@@ -32,33 +31,38 @@ namespace Shecodes.Levels
             ButtonUp.onClick.AddListener(OnButtonClickUp);
             ButtonDown.onClick.AddListener(OnButtonClickDown);
             ButtonFor.onClick.AddListener(OnButtonClickFor);
-            forInt = ForRange.x;
-            ButtonForText.text = $"For: {forInt}";
+            ButtonForText.text = $"For: {ForRange[forIndex]}";
         }
 
         private void OnButtonClickRight()
         {
-            GameManager.Instance.ForMovePlayer(Direction.Right, forInt);
+            GameManager.Instance.ForMovePlayer(Direction.Right, ForRange[forIndex]);
+            forIndex = 0;
+            ButtonForText.text = $"For: {ForRange[forIndex]}";
         }
 
         private void OnButtonClickDown()
         {
-            GameManager.Instance.ForMovePlayer(Direction.Down, forInt);
+            GameManager.Instance.ForMovePlayer(Direction.Down, ForRange[forIndex]);
+            forIndex = 0;
+            ButtonForText.text = $"For: {ForRange[forIndex]}";
         }
 
         private void OnButtonClickUp()
         {
-            GameManager.Instance.ForMovePlayer(Direction.Up, forInt);
+            GameManager.Instance.ForMovePlayer(Direction.Up, ForRange[forIndex]);
+            forIndex = 0;
+            ButtonForText.text = $"For: {ForRange[forIndex]}";
         }
 
         private void OnButtonClickFor()
         {
-            forInt++;
-            if (forInt > ForRange.y)
+            forIndex++;
+            if (forIndex > ForRange.Count-1)
             {
-                forInt = ForRange.x;
+                forIndex = 0;
             }
-            ButtonForText.text = $"For: {forInt}";
+            ButtonForText.text = $"For: {ForRange[forIndex]}";
         }
     }
 }

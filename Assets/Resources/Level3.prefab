@@ -366,7 +366,7 @@ MonoBehaviour:
   MaxSteps: 9
   PlayerPosition: {x: 1, y: -2}
   GoalPosition: {x: -2, y: 2}
-  ForRange: {x: 1, y: 8}
+  ForRange: 010000000200000005000000
 --- !u!1001 &97120382943900377
 PrefabInstance:
   m_ObjectHideFlags: 0
