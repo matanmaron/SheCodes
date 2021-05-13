@@ -136,7 +136,7 @@ namespace Shecodes.Managers
         {
             Debug.Log("[Move] Move Successful");
             maxSteps--;
-            if (maxSteps == 0)
+            if (maxSteps == 0 && !gameOver)
             {
                 GameOverLose();
             }
