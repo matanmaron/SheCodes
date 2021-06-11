@@ -1,45 +1,40 @@
-using Shecodes.Frame;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Shecodes.Elements
+public class Switch : MonoBehaviour
 {
-    public class Switch : MonoBehaviour
+    [Header("Change")]
+    [SerializeField] public List<Gate> relatedGates = new List<Gate>();
+    
+    [Space(10)]
+    [Header("Do Not Change")]
+    [SerializeField] public List<GameObject> myConnectionLights = new List<GameObject>();
+
+    [HideInInspector] public int activeConnections = 0;
+    [SerializeField] private ParticleSystem ps = null;
+
+    
+    void Start()
     {
-        [SerializeField] Sprite On;
-        [SerializeField] Sprite Off;
-        [SerializeField] bool IsOn = false;
-        [SerializeField] Gate LinkedGate = null;
-        SpriteRenderer spriteRenderer = null;
-
-        void Start()
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            GetSprite();
-        }
-
-        private void GetSprite()
-        {
-            spriteRenderer.sprite = IsOn ? On : Off;
-        }
-
-        internal void ToggleSwitch(bool ison)
-        {
-            string status = ison ? "On" : "Off";
-            Debug.Log($"Switch is now {status}");
-            IsOn = ison;
-            GetSprite();
-            LinkedGate.ToggleGate(IsOn);
-        }
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.tag == Consts.PLAYER)
-            {
-                ToggleSwitch(!IsOn);
-            }
-        }
+        //ps = GetComponentInChildren<ParticleSystem>();
     }
+
+    void Update()
+    {
+        
+    }
+
+    public void PressSwitch()
+    {
+        Debug.Log("switch pressed");
+        
+        foreach (Gate gate in relatedGates)
+        {
+            gate.ToggleGate();
+        }
+        
+        ps.Play();
+    }
+
 }

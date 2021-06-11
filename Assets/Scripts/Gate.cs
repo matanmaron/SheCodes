@@ -1,36 +1,78 @@
-using Shecodes.Frame;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Shecodes.Elements
+public class Gate : MonoBehaviour
 {
-    public class Gate : MonoBehaviour
+    [Header("Change in Editor")]
+    [SerializeField] private bool isOpen = false;
+
+    [Space(10)]
+    [Header("Do Not Change")]
+    [SerializeField] private Material openMaterial = null;
+    [SerializeField] private Material closedMaterial = null;
+    [SerializeField] private GameObject materialOrigin = null;
+    [SerializeField] public List<GameObject> myConnectionLights = new List<GameObject>();
+    [HideInInspector] public int activeConnections = 0;
+
+    
+    
+
+    
+    void Start()
     {
-        [SerializeField] Sprite Open;
-        [SerializeField] Sprite Close;
-        [SerializeField] bool IsOpened = false;
+        SetMyState();
 
-        SpriteRenderer spriteRenderer = null;
-        void Start()
+    }
+
+    void Update()
+    {
+        
+    }
+
+    public void ToggleGate()
+    {
+        if (isOpen)
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            GetSprite();
+            CloseGate();
+        }
+        else
+        {
+            OpenGate();    
         }
 
-        private void GetSprite()
-        {
-            spriteRenderer.sprite = IsOpened ? Open : Close;
-            gameObject.tag = IsOpened ? Consts.FREESPOT : Consts.BLOCK;
-        }
+        SetMyState();
+    }
+    public void OpenGate()
+    {
+        isOpen = true;
 
-        internal void ToggleGate(bool isopen)
+        SetMyState();
+    }
+
+    public void CloseGate()
+    {
+        isOpen = false;
+
+        SetMyState();
+    }
+
+    private void SetMyState()
+    {
+        GetComponentInParent<Block>().isWalkable = isOpen;
+        
+        if (isOpen)
         {
-            string status = isopen ? "Open" : "Closed";
-            Debug.Log($"Gate is now {status}");
-            IsOpened = isopen;
-            GetSprite();
+            materialOrigin.GetComponent<Renderer>().material = openMaterial;
         }
+        else
+        {
+            materialOrigin.GetComponent<Renderer>().material = closedMaterial;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        //DestroyImmediate(myConnectionsMatrix.gameObject);
     }
 }
