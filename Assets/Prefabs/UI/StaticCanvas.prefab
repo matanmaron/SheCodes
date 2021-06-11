@@ -2703,7 +2703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2732c5b8428cc4e968442791ad858e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forText: {fileID: 6673971565727956705, guid: b12d5e4118bdaed44a2fcefd14ce8e87, type: 3}
+  forText: {fileID: 0}
   minusButton: {fileID: 6673971566200191061}
   plusButton: {fileID: 6673971564790020321}
   isActive: 0
@@ -2876,7 +2876,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 236.89001, y: -42.61487}
-  m_SizeDelta: {x: 473.8345, y: 85.2723}
+  m_SizeDelta: {x: 473.83447, y: 85.2723}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6748500474397055178
 MonoBehaviour:
