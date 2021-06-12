@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour
 {
-    [SerializeField] private Text movesLeftText;
+    [SerializeField] private TextMeshProUGUI movesLeftText;
     [SerializeField] private GameObject directionButtons = null;
     [SerializeField] private GameObject forButton = null;
     [SerializeField] private GameObject pressButton = null;
@@ -13,8 +15,10 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private GameObject VariaballUI = null;
     [SerializeField] private GameObject useMachineButton = null;
     [SerializeField] private Text variableText = null;
-    [SerializeField] LevelCreator levelCreator = null;
-    [SerializeField] Player player = null;
+    [SerializeField] private GameObject SettingsPanel = null;
+
+    LevelCreator levelCreator = null;
+    Player player = null;
 
     public static UI_Manager Instance { get; private set; } //singleton
     private void Awake()
@@ -122,5 +126,25 @@ public class UI_Manager : MonoBehaviour
         //Player player = GameObject.Find("Player").GetComponent<Player>();
         
         player.UseMachineInitial();
+    }
+
+    public void OnSettingsButton()
+    {
+        SettingsPanel.SetActive(true);
+    }
+
+    public void OnPlayButton()
+    {
+        SettingsPanel.SetActive(false);
+    }
+
+    public void OnExitButton()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void OnResetButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
