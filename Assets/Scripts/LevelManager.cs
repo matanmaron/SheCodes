@@ -39,6 +39,7 @@ public class LevelManager : MonoBehaviour
 
         levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
         //player = GameObject.Find("Player").GetComponent<Player>();
+        cb = GameObject.Find("CodeBuilder").GetComponent<CodeBuilder>();
 
 
         maxMoves = levelCreator.levelMaxMoves;
@@ -65,7 +66,8 @@ public class LevelManager : MonoBehaviour
         
         
         playerStartPos = blocksList[playerStartBlockIndex].transform.position + new Vector3(0, blocksList[playerStartBlockIndex].GetComponentInChildren<MeshRenderer>().bounds.extents.y + GameManager.Instance.playerYOffset, 0);
-        GameObject player = Instantiate(levelCreator.playerPrefab, playerStartPos, Quaternion.identity);
+        player = Instantiate(levelCreator.playerPrefab, playerStartPos, Quaternion.identity).GetComponent<Player>();
+        //GameObject player = Instantiate(levelCreator.playerPrefab, playerStartPos, Quaternion.identity);
         //GameManager.Instance.Player = player.GetComponent<Player>();
         player.transform.position = playerStartPos;
 

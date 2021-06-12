@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        //lm = FindObjectOfType<LevelManager>();
         currentBlockIndex = GameManager.Instance.LevelManager.playerStartBlockIndex;
 
         TurnTowardsCamera();
@@ -150,8 +149,6 @@ public class Player : MonoBehaviour
             }
             else
             {
-                //OnWalk?.Invoke();
-
                 movementStartPos = transform.position;
 
                 int newBlockIndex = 0;
@@ -160,19 +157,15 @@ public class Player : MonoBehaviour
                 {
                 case Direction.up:
                     newBlockIndex = currentBlockIndex + GameManager.Instance.LevelManager.levelGridY;
-                    //OnPlayerAction?.Invoke(PlayerMoves.Up, MOVECOST);
                     break;
                 case Direction.down:
                     newBlockIndex = currentBlockIndex - GameManager.Instance.LevelManager.levelGridY;
-                    //OnPlayerAction?.Invoke(PlayerMoves.Down, MOVECOST);
                     break;
                 case Direction.left:
                     newBlockIndex = currentBlockIndex - 1;
-                    //OnPlayerAction?.Invoke(PlayerMoves.Left, MOVECOST);
                     break;
                 case Direction.right:
                     newBlockIndex = currentBlockIndex + 1;
-                    //OnPlayerAction?.Invoke(PlayerMoves.Right, MOVECOST);
                     break;
                 default:
                     break;
@@ -196,10 +189,6 @@ public class Player : MonoBehaviour
         {
             return;
         }
-
-        //OnAnyAction?.Invoke();
-        //OnWalk?.Invoke();
-        //GameManager.Instance.LevelManager.movesTaken++;
 
         stepsCounter = ForHandler.Instance.forNum;
         if(stepsCounter > 1)

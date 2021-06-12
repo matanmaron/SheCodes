@@ -30,6 +30,7 @@ public class PlayerAnimation : MonoBehaviour
 
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.A))
         {
             Walk();
@@ -46,6 +47,7 @@ public class PlayerAnimation : MonoBehaviour
         {
             Close();
         }
+        */
    }
 
     private void Walk()
