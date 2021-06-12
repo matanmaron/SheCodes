@@ -61,6 +61,11 @@ public class CodeBuilder : MonoBehaviour
         OnPlayerAction -= StoreMove;
     }
 
+    private void Start()
+    {
+        lvlMngr = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+    }
+
     public string BuildCode()
     {
         code = "";

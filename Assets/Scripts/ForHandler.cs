@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ForHandler : MonoBehaviour
 {
     [Header("Do Not Change")]
-    [SerializeField] private Text forText = null;
+    [SerializeField] private TextMeshProUGUI forText = null;
     [SerializeField] private Button minusButton = null ;
     [SerializeField] private Button plusButton = null;
 
