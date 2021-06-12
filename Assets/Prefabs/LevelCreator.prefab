@@ -51,44 +51,34 @@ MonoBehaviour:
   pressButtonEnabled: 0
   pickupDropButtonEnabled: 0
   useMachineButtonEnabled: 0
-  playerPrefab: {fileID: 3117213487395983914, guid: 197ff76c3599ea84fbbaa5fa13d72c9c,
-    type: 3}
-  emptyBlockPrefab: {fileID: 8989217568637552112, guid: de8f10aef3c26544289050f28d9cc2ad,
-    type: 3}
-  pathPrefab: {fileID: 3909336522092332757, guid: ad123d5f0bbf4c146a1984f5dc0935d3,
-    type: 3}
-  switchPrefab: {fileID: 1072667416915969952, guid: b8d84ebffcd09764193d0d63db0f20b6,
-    type: 3}
-  pedestalPrefab: {fileID: 7239006945556371747, guid: 85fb8ee422006d14daf5c2a0fc267569,
-    type: 3}
-  gatePrefab: {fileID: 8969966688627139589, guid: 61a0ab550ed536f48a6a13c331b82531,
-    type: 3}
-  operationMachinePrefab: {fileID: 4323137549259635671, guid: 44b294e63fad6f048bf2f229f75f7260,
-    type: 3}
-  assignmentMachinePrefab: {fileID: 3874428656095727633, guid: e687515d6dcaad748b714c99a0ab8623,
-    type: 3}
-  EndPositionPrefab: {fileID: 4776857528781231727, guid: 2420414f1f458614a83f0a9595e3465b,
-    type: 3}
-  variaballPrefab: {fileID: 1378025974947060503, guid: 2505eba399c59064ca84419aedfebd10,
-    type: 3}
+  playerPrefab: {fileID: 3117213487395983914, guid: b9c5610ddb8798e44819604124eaf0d9, type: 3}
+  emptyBlockPrefab: {fileID: 8989217568637552112, guid: de8f10aef3c26544289050f28d9cc2ad, type: 3}
+  pathPrefab: {fileID: 3909336522092332757, guid: ad123d5f0bbf4c146a1984f5dc0935d3, type: 3}
+  switchPrefab: {fileID: 1072667416915969952, guid: b8d84ebffcd09764193d0d63db0f20b6, type: 3}
+  pedestalPrefab: {fileID: 7239006945556371747, guid: 85fb8ee422006d14daf5c2a0fc267569, type: 3}
+  gatePrefab: {fileID: 8969966688627139589, guid: 61a0ab550ed536f48a6a13c331b82531, type: 3}
+  operationMachinePrefab: {fileID: 4323137549259635671, guid: 44b294e63fad6f048bf2f229f75f7260, type: 3}
+  assignmentMachinePrefab: {fileID: 3874428656095727633, guid: e687515d6dcaad748b714c99a0ab8623, type: 3}
+  EndPositionPrefab: {fileID: 4776857528781231727, guid: 2420414f1f458614a83f0a9595e3465b, type: 3}
+  variaballPrefab: {fileID: 1378025974947060503, guid: 2505eba399c59064ca84419aedfebd10, type: 3}
   connectionLightsMaterial:
-  - {fileID: 2100000, guid: 073a613957d84e3499f29ab36f566237, type: 2}
-  - {fileID: 2100000, guid: 4ab697586a7613741a0fa030ed3408f1, type: 2}
-  - {fileID: 2100000, guid: f2ebba5df3c598b44af6c7e5962ef2d3, type: 2}
-  - {fileID: 2100000, guid: b37702bdc74ffda4e813c4deaffaed06, type: 2}
-  - {fileID: 2100000, guid: 5742b86953a4e6f468b88425b6aa93a6, type: 2}
-  - {fileID: 2100000, guid: 6b421d882cab55b49b75dff4fbf942ec, type: 2}
-  - {fileID: 2100000, guid: 1b5126467ba2c62408e361dbd0143d94, type: 2}
-  - {fileID: 2100000, guid: 3e1b1ca5f4f388e42ad697f0e4fb3b8e, type: 2}
-  - {fileID: 2100000, guid: 031ba18e179149545bccea8b86ea82da, type: 2}
-  - {fileID: 2100000, guid: 05d956d296d6eea4b8aee1bca61c3b7c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   freeConnectionLightsMaterial:
-  - {fileID: 2100000, guid: 073a613957d84e3499f29ab36f566237, type: 2}
-  - {fileID: 2100000, guid: 4ab697586a7613741a0fa030ed3408f1, type: 2}
-  - {fileID: 2100000, guid: f2ebba5df3c598b44af6c7e5962ef2d3, type: 2}
-  - {fileID: 2100000, guid: b37702bdc74ffda4e813c4deaffaed06, type: 2}
-  - {fileID: 2100000, guid: 5742b86953a4e6f468b88425b6aa93a6, type: 2}
-  - {fileID: 2100000, guid: 6b421d882cab55b49b75dff4fbf942ec, type: 2}
-  - {fileID: 2100000, guid: 3e1b1ca5f4f388e42ad697f0e4fb3b8e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   blocksParent: {fileID: 0}
   variaballsParent: {fileID: 0}
