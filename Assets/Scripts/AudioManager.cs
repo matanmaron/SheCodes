@@ -60,4 +60,14 @@ public class AudioManager : MonoBehaviour
         SFXPlayer[effectPlayerNumber].clip = clip;
         SFXPlayer[effectPlayerNumber].Play();
     }
+
+    public void SetMute(bool music, bool sfx)
+    {
+        MusicPlayer.mute = music;
+        foreach (var player in SFXPlayer)
+        {
+            player.mute = sfx;
+        }
+        Debug.Log($"mute music is now: {music} | mute sfx is now: {sfx}");
+    }
 }

@@ -91,6 +91,7 @@ public class LevelManager : MonoBehaviour
 
     public void EndLevel()
     {
+        OnLevelEnd?.Invoke();
         Debug.Log("level ended");
     }
 
