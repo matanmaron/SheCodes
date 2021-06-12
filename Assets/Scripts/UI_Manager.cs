@@ -16,7 +16,8 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private GameObject useMachineButton = null;
     [SerializeField] private Text variableText = null;
     [SerializeField] private GameObject SettingsPanel = null;
-
+    [SerializeField] private GameObject EndPanel = null;
+    [SerializeField] private TextMeshProUGUI EndText = null;
     LevelCreator levelCreator = null;
     Player player = null;
 
@@ -38,13 +39,13 @@ public class UI_Manager : MonoBehaviour
         levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
 
         SetupLevelUI();
-        
+        LevelManager.OnLevelEnd += OnLevelEnd;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnLevelEnd()
     {
-        
+        EndText.text = CodeBuilder.Instance.BuildCode();
+        EndPanel.SetActive(true);
     }
 
     public void UpdateMovesLeftText()
@@ -145,6 +146,11 @@ public class UI_Manager : MonoBehaviour
 
     public void OnResetButton()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void OnNextButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

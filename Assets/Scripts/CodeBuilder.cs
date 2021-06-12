@@ -20,7 +20,6 @@ public class CodeBuilder : MonoBehaviour
     // Start is called before the first frame update
     public static CodeBuilder Instance { get; private set; } //singleton
 
-    private GameObject player;
     private List<Move> moves;
     private string code;
     [SerializeField] private LevelManager lvlMngr;
@@ -60,17 +59,6 @@ public class CodeBuilder : MonoBehaviour
         //OnPressSwitch -= FunctionName;
 
         OnPlayerAction -= StoreMove;
-    }
-    
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public string BuildCode()
