@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,6 +17,7 @@ public class MenuManager : MonoBehaviour
 
     public void Start()
     {
+        AudioManager.Instance.PlayMenu();
         OnBack();
         lastLevel = PlayerPrefs.GetInt("level", 0);
         if (lastLevel == 0)

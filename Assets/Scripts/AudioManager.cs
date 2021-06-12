@@ -34,12 +34,17 @@ public class AudioManager : MonoBehaviour
         NextMusicFile();
     }
 
+    public void PlayMenu()
+    {
+        musicFileNumber = -1;
+        NextMusicFile();
+    }
     public void NextMusicFile()
     {
         musicFileNumber++;
         if (musicFileNumber > MusicFiles-1)
         {
-            musicFileNumber = 0;
+            musicFileNumber = 1;
         }
         var name = musicFileNumber.ToString();
         Debug.Log($"Loading music file: {name}");
