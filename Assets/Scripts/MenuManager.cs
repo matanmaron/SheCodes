@@ -3,16 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private GameObject Menu;
-    [SerializeField] private GameObject Levels;
+    [SerializeField] private GameObject MenuPanel;
+    [SerializeField] private GameObject LevelsPanel;
+    [SerializeField] private Button ContinueBTN = null;
+    [SerializeField] private GameObject CreditsPanel = null;
+    [SerializeField] private GameObject OptionsPanel = null;
+    [SerializeField] private GameObject HowToPlayPanel = null;
+
+    private int lastLevel = 0;
 
     public void Start()
     {
-        Menu.SetActive(true);
-        Levels.SetActive(false);
+        OnBack();
+        lastLevel = PlayerPrefs.GetInt("level", 0);
+        if (lastLevel == 0)
+        {
+            Debug.Log("no saved level");
+            ContinueBTN.interactable = false;
+        }
+    }
+
+    private void ShowLevels()
+    {
+        MenuPanel.SetActive(false);
+        LevelsPanel.SetActive(true);
+    }
+
+    public void OnBack()
+    {
+        MenuPanel.SetActive(true);
+        LevelsPanel.SetActive(false);
+        CreditsPanel.SetActive(false);
+        OptionsPanel.SetActive(false);
+        HowToPlayPanel.SetActive(false);
+    }
+
+    public void LoadLevel(int number)
+    {
+        SceneManager.LoadScene(number.ToString("D2"));
     }
 
     public void OnStart()
@@ -20,20 +52,26 @@ public class MenuManager : MonoBehaviour
         ShowLevels();
     }
 
-    private void ShowLevels()
+    public void OnContinue()
     {
-        Menu.SetActive(false);
-        Levels.SetActive(true);
+        SceneManager.LoadScene(lastLevel.ToString("D2"));
     }
 
-    public void OnBack()
+    public void OnHowToPlay()
     {
-        Menu.SetActive(true);
-        Levels.SetActive(false);
+        HowToPlayPanel.SetActive(true);
+        MenuPanel.SetActive(false);
     }
 
-    public void LoadLevel(int number)
+    public void OnOptions()
     {
-        SceneManager.LoadScene(number.ToString("D2"));
+        OptionsPanel.SetActive(true);
+        MenuPanel.SetActive(false);
+    }
+
+    public void OnCredits()
+    {
+        CreditsPanel.SetActive(true);
+        MenuPanel.SetActive(false);
     }
 }
