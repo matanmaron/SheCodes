@@ -3644,6 +3644,8 @@ MonoBehaviour:
   SettingsPanel: {fileID: 6673971564510416754}
   EndPanel: {fileID: 4571511897313715337}
   EndText: {fileID: 1755353053714877587}
+  ButtonIdle: {fileID: 21300000, guid: fbf0259d1d2c53f459985c184ded68eb, type: 3}
+  ButtonPressed: {fileID: 21300000, guid: 582705624cc83c244a2f98c0ea24fc29, type: 3}
 --- !u!114 &4894953758474992147
 MonoBehaviour:
   m_ObjectHideFlags: 0

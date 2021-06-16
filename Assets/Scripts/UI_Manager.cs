@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -18,8 +19,11 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private GameObject SettingsPanel = null;
     [SerializeField] private GameObject EndPanel = null;
     [SerializeField] private TextMeshProUGUI EndText = null;
+    [SerializeField] private Sprite ButtonIdle;
+    [SerializeField] private Sprite ButtonPressed;
     LevelCreator levelCreator = null;
     Player player = null;
+    ButtonType prevButton = ButtonType.None;
 
     public static UI_Manager Instance { get; private set; } //singleton
     private void Awake()
@@ -109,23 +113,56 @@ public class UI_Manager : MonoBehaviour
     public void PressSwitchPressed()
     {
         //Player player = GameObject.Find("Player").GetComponent<Player>();
-        
+
         //player = GameObject.Find("Player").GetComponent<Player>();
-        
+        SetPressedButton(ButtonType.PressSwitch);
         player.PressSwitchInitial();
     }
 
     public void PickupOrDropPressed()
     {
         //Player player = GameObject.Find("Player").GetComponent<Player>();
-        
+        SetPressedButton(ButtonType.PickupOrDrop);
         player.PickUpOrDropInitial();
+    }
+
+    private void SetPressedButton(ButtonType btype)
+    {
+        if (prevButton == btype)
+        {
+            SetImage(btype, ButtonIdle);
+            btype = ButtonType.None;
+        }
+        else
+        {
+            SetImage(prevButton, ButtonIdle);
+            SetImage(btype, ButtonPressed);
+        }
+        prevButton = btype;
+    }
+
+    private void SetImage(ButtonType btype, Sprite buttonSprite)
+    {
+        switch (btype)
+        {
+            case ButtonType.PickupOrDrop:
+                pickupDropButton.GetComponent<Image>().sprite = buttonSprite;
+                break;
+            case ButtonType.PressSwitch:
+                pressButton.GetComponent<Image>().sprite = buttonSprite;
+                break;
+            case ButtonType.UseMachine:
+                useMachineButton.GetComponent<Image>().sprite = buttonSprite;
+                break;
+            default:
+                break;
+        }
     }
 
     public void UseMachinePressed()
     {
         //Player player = GameObject.Find("Player").GetComponent<Player>();
-        
+        SetPressedButton(ButtonType.UseMachine);
         player.UseMachineInitial();
     }
 
@@ -154,4 +191,12 @@ public class UI_Manager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+}
+
+public enum ButtonType
+{
+    None,
+    PickupOrDrop,
+    PressSwitch,
+    UseMachine
 }
