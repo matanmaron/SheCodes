@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Variaball : MonoBehaviour
 {
-    [SerializeField] public int myBlockIndex = 0;
+    [Header("Change")]
     [SerializeField] public bool isNull = false;
-    [SerializeField] public int myInt = 3;
+    [SerializeField] public int myInt = 3;  
+
+    [Space(10)]
+    [Header("Do Not Change")]
+    [SerializeField] public int myBlockIndex = 0;
+    
     [SerializeField] Player player = null;
     [SerializeField] LevelCreator levelCreator = null;
     //public bool isHeld = false;
@@ -89,7 +94,7 @@ public class Variaball : MonoBehaviour
         transform.parent = levelCreator.variaballsParent;
         
         //var newPos = pedestal.transform.position + new Vector3(0, pedestal.GetComponent<MeshRenderer>().bounds.extents.y + GameManager.Instance.variaballYOffset, 0);
-        var newPos = pedestal.transform.position + new Vector3(0, GameManager.Instance.variaballYPedestalOffset, 0);
+        var newPos = pedestal.transform.position + new Vector3(0, GameManager.Instance.variaballYPedestalOffset, 0.262f);
         transform.position = newPos;
         pedestal.GetVariaball(this);
 

@@ -62,23 +62,16 @@ MonoBehaviour:
   EndPositionPrefab: {fileID: 4776857528781231727, guid: 2420414f1f458614a83f0a9595e3465b, type: 3}
   variaballPrefab: {fileID: 1378025974947060503, guid: 2505eba399c59064ca84419aedfebd10, type: 3}
   connectionLightsMaterial:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  freeConnectionLightsMaterial:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: c991b5e9e419afc41952dae697e1d36d, type: 2}
+  - {fileID: 2100000, guid: 88cce0b3101e82a45a9f0beeb98934d0, type: 2}
+  - {fileID: 2100000, guid: 2c9c5bef8cd397c4d975c667ffdb8049, type: 2}
+  - {fileID: 2100000, guid: 847723e2c3723004ab7a3b0cee898cd2, type: 2}
+  - {fileID: 2100000, guid: f93438efac5d4d0429fd1f477ce93f6b, type: 2}
+  - {fileID: 2100000, guid: b62fda1c007af6c4590eb4fedbc53beb, type: 2}
+  - {fileID: 2100000, guid: e7a067be26d8ecb4ea190e8763e5efd4, type: 2}
+  - {fileID: 2100000, guid: ef57e247813e9a9469a400300d8a4867, type: 2}
+  - {fileID: 2100000, guid: aa7bf7e6fdce6024aad8ac5ab3f89da6, type: 2}
+  - {fileID: 2100000, guid: 8d5ef72bd23a8d544ad5c53ed51b11ce, type: 2}
+  freeConnectionLightsMaterial: []
   blocksParent: {fileID: 0}
   variaballsParent: {fileID: 0}

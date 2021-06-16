@@ -41,7 +41,7 @@ public class LevelCreator : MonoBehaviour
     [Space(10)]
     [Header("Materials")]
     [SerializeField] private List<Material> connectionLightsMaterial = new List<Material>();
-    [SerializeField] public List<Material> freeConnectionLightsMaterial = new List<Material>();
+    [HideInInspector] public List<Material> freeConnectionLightsMaterial = new List<Material>();
     
     [Space(10)]
     [Header("Fathers")]
