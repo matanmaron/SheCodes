@@ -105,8 +105,8 @@ public class UI_Manager : MonoBehaviour
         //Debug.Log(GameObject.Find("Player").GetComponent<Player>());
 
         //Player player = GameObject.Find("Player").GetComponent<Player>();
-        
-        
+
+        SetPressedButton(ButtonType.None);
         player.DirectionPressed(directionNum);
     }
 
