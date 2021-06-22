@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,6 +16,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject OptionsPanel = null;
     [SerializeField] private GameObject HowToPlayPanel = null;
 
+    [SerializeField] Transform ParentsGrid = null;
+    [SerializeField] GameObject LevelButtonPrefab = null;
+
     private int lastLevel = 0;
 
     public void Start()
@@ -24,6 +30,27 @@ public class MenuManager : MonoBehaviour
         {
             Debug.Log("no saved level");
             ContinueBTN.interactable = false;
+        }
+        BuildLevelButtons();
+    }
+
+    private void BuildLevelButtons()
+    {
+        string folderName = Application.dataPath + "/Scenes";
+        var dirInfo = new DirectoryInfo(folderName);
+        var allFileInfos = dirInfo.GetFiles("*.unity", SearchOption.TopDirectoryOnly);
+        foreach (var fileInfo in allFileInfos)
+        {
+            if (fileInfo.Name.Contains("Menu"))
+            {
+                continue;
+            }
+            var btn = Instantiate(LevelButtonPrefab, ParentsGrid);
+            var name = @fileInfo.Name.Split('.')[0];
+            btn.name = name;
+            btn.GetComponentInChildren<TextMeshProUGUI>().text = name;
+            btn.GetComponent<Button>().onClick.AddListener(delegate { LoadLevel(name); });
+            Debug.Log("Found a scene file: " + name);
         }
     }
 
@@ -42,9 +69,9 @@ public class MenuManager : MonoBehaviour
         HowToPlayPanel.SetActive(false);
     }
 
-    public void LoadLevel(int number)
+    public void LoadLevel(string number)
     {
-        SceneManager.LoadScene(number.ToString("D2"));
+        SceneManager.LoadScene(number);
     }
 
     public void OnStart()
