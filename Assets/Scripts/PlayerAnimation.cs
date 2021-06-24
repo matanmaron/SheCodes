@@ -9,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     private void OnEnable()
     {
         LevelManager.OnLevelEnd += Close;
+        LevelManager.OnLevelFail += Close;
         Player.OnWalk += Walk;
         Player.OnUse += Use; 
         Player.OnStopWalking += Idle;
@@ -17,6 +18,7 @@ public class PlayerAnimation : MonoBehaviour
     private void OnDisable() 
     {
         LevelManager.OnLevelEnd -= Close;
+        LevelManager.OnLevelFail -= Close;
         Player.OnWalk -= Walk;
         Player.OnUse -= Use;     
         Player.OnStopWalking -= Idle;

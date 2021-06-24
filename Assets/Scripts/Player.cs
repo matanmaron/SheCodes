@@ -146,6 +146,8 @@ public class Player : MonoBehaviour
                 {
                     GameManager.Instance.LevelManager.EndLevel();
                 }
+             
+            
             }
             else
             {

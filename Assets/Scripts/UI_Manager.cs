@@ -21,6 +21,7 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI EndText = null;
     [SerializeField] private Sprite ButtonIdle;
     [SerializeField] private Sprite ButtonPressed;
+
     LevelCreator levelCreator = null;
     Player player = null;
     ButtonType prevButton = ButtonType.None;
@@ -36,20 +37,33 @@ public class UI_Manager : MonoBehaviour
         {
             Instance = this;
         }
+        DontDestroyOnLoad(this.gameObject);
     }
-    
-    void Start()
+   
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
-
         SetupLevelUI();
         LevelManager.OnLevelEnd += OnLevelEnd;
+        LevelManager.OnLevelFail += OnLevelFail;
     }
+
 
     void OnLevelEnd()
     {
         EndText.text = CodeBuilder.Instance.BuildCode();
         EndPanel.SetActive(true);
+    }
+
+    void OnLevelFail()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void UpdateMovesLeftText()
@@ -178,17 +192,25 @@ public class UI_Manager : MonoBehaviour
 
     public void OnExitButton()
     {
+      
         SceneManager.LoadScene(0);
+        EndPanel.SetActive(false);
     }
 
     public void OnResetButton()
     {
+       
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        EndPanel.SetActive(false);
     }
 
     public void OnNextButton()
     {
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        EndPanel.SetActive(false);
+        SetupLevelUI();
+
     }
 
 }

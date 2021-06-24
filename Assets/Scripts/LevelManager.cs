@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     
     public static event Action OnLevelEnd;
+    public static event Action OnLevelFail;
     public int maxMoves = 3;
     public int playerStartBlockIndex;
     private Vector3 playerStartPos;
@@ -97,13 +98,20 @@ public class LevelManager : MonoBehaviour
         Debug.Log("level ended");
     }
 
+    public void FailLevel()
+    {
+        OnLevelFail?.Invoke();
+        Debug.Log("level failed");
+    }
+
     private void MoveTaken()
     {
         movesLeft--;
         UI_Manager.Instance.UpdateMovesLeftText();
 
-        if (movesLeft <= 0)
+        if (movesLeft < 0)
         {
+            FailLevel();
             Debug.Log("no moves left");
             cb.BuildCode();
         }
