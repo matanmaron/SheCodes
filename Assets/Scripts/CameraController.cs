@@ -12,15 +12,25 @@ public class CameraController : MonoBehaviour
     [Header("Do Not Change")]
     private Vector2 touchStart;
     [SerializeField] private Camera cam;
-    
+
+    bool gameOver = true;
 
     void Start()
     {
+        LevelManager.OnLevelEnd += OnLevelEnd;
+    }
 
+    private void OnLevelEnd()
+    {
+        gameOver = true;
     }
 
     void Update()
     {
+        if (gameOver)
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             touchStart = Input.mousePosition;

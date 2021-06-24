@@ -21,6 +21,7 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI EndText = null;
     [SerializeField] private Sprite ButtonIdle;
     [SerializeField] private Sprite ButtonPressed;
+    [SerializeField] private RectTransform EndContent;
 
     LevelCreator levelCreator = null;
     Player player = null;
@@ -37,7 +38,7 @@ public class UI_Manager : MonoBehaviour
         {
             Instance = this;
         }
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
    
 
@@ -48,7 +49,11 @@ public class UI_Manager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        levelCreator = GameObject.Find("LevelCreator").GetComponent<LevelCreator>();
+        levelCreator = GameObject.Find("LevelCreator")?.GetComponent<LevelCreator>();
+        if (levelCreator == null)
+        {
+            return;
+        }
         SetupLevelUI();
         LevelManager.OnLevelEnd += OnLevelEnd;
         LevelManager.OnLevelFail += OnLevelFail;
@@ -58,6 +63,7 @@ public class UI_Manager : MonoBehaviour
     void OnLevelEnd()
     {
         EndText.text = CodeBuilder.Instance.BuildCode();
+        EndContent.sizeDelta = new Vector2(EndContent.sizeDelta.x, 50 * EndText.text.Split('\n').Length);
         EndPanel.SetActive(true);
     }
 
@@ -192,9 +198,9 @@ public class UI_Manager : MonoBehaviour
 
     public void OnExitButton()
     {
-      
         SceneManager.LoadScene(0);
         EndPanel.SetActive(false);
+        SettingsPanel.SetActive(false);
     }
 
     public void OnResetButton()
@@ -202,6 +208,7 @@ public class UI_Manager : MonoBehaviour
        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         EndPanel.SetActive(false);
+        SettingsPanel.SetActive(false);
     }
 
     public void OnNextButton()
@@ -209,8 +216,8 @@ public class UI_Manager : MonoBehaviour
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         EndPanel.SetActive(false);
+        SettingsPanel.SetActive(false);
         SetupLevelUI();
-
     }
 
 }
