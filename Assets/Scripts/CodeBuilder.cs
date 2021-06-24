@@ -146,11 +146,10 @@ public class CodeBuilder : MonoBehaviour
             codeString += "\t int i; \n";
         }
 
-        if (isSwitchExists())
-        {
-            codeString += "\t bool isSwitch = false; \n"; 
-        }
 
+        codeString += initSwitches();
+
+        
         foreach (Variaball ball in balls)
         {
             codeString += "\t int variaball" + ball.GetID() + "; \n ";
@@ -173,16 +172,19 @@ public class CodeBuilder : MonoBehaviour
         return false;
     }
 
-    public bool isSwitchExists()
+    public string initSwitches()
     {
+        string codeString = "";
+        int counter = 1;
         foreach (Move move in moves)
         {
             if (move.MoveName == PlayerMoves.Press)
             {
-                return true;
+                codeString += "\t bool isSwitch"+counter+" = false; \n";
+                counter++;
             }
         }
-        return false;
+        return codeString;
     }
 
     public string BuildMove(Move DirMove, string tab)
@@ -213,7 +215,7 @@ public class CodeBuilder : MonoBehaviour
         return "\t " +
             "for (i = 0; i < "+ ForMove.MoveValue+ "; i++) \n \t{ "+
             BuildMove(DirMove,"\n\t")+
-             " \n \t }" +
+             " \n \t }\n" +
             "\n";
     }
 
@@ -222,7 +224,7 @@ public class CodeBuilder : MonoBehaviour
         return "\t " +
             "for (i = 0; i < " + ForMachine.MoveValue + "; i++) \n \t{ " +
             BuildOperation(TypeMachine, Ball, "\n\t")+
-             " \n \t }" +
+             " \n \t }\n" +
             "\n";
     }
 }
