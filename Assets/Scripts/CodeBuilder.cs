@@ -39,24 +39,11 @@ public class CodeBuilder : MonoBehaviour
     private void OnEnable()
     {
 
-        //OnWalk += FunctionName;
-        //OnPickUpVariaball += FunctionName;
-        //OnDropVariaball += FunctionName;
-        //OnUseAsMachine += FunctionName;
-        //OnUseOpMachine += FunctionName;
-        //OnPressSwitch += FunctionName;
-
         OnPlayerAction += StoreMove;
     }
 
     private void OnDisable()
     {
-        //OnWalk -= FunctionName;
-        //OnPickUpVariaball -= FunctionName;
-        //OnDropVariaball -= FunctionName;
-        //OnUseAsMachine -= FunctionName;
-        //OnUseOpMachine -= FunctionName;
-        //OnPressSwitch -= FunctionName;
 
         OnPlayerAction -= StoreMove;
     }
@@ -88,33 +75,33 @@ public class CodeBuilder : MonoBehaviour
                     i +=2;
                     break;
                 case PlayerMoves.Up:
-                    code += BuildMove(moves[i]);
+                    code += BuildMove(moves[i],"");
                     break;
                 case PlayerMoves.Down:
-                    code += BuildMove(moves[i]);
+                    code += BuildMove(moves[i], "");
                     break;
                 case PlayerMoves.Left:
-                    code += BuildMove(moves[i]);
+                    code += BuildMove(moves[i], "");
                     break;
                 case PlayerMoves.Right:
-                    code += BuildMove(moves[i]);
+                    code += BuildMove(moves[i], "");
                     break;
                 case PlayerMoves.Press:
-                    code += "isSwitch = !isSwitch; \n";
+                    code += "\t isSwitch = !isSwitch; \n";
                     break;
                 case PlayerMoves.AssignMachine:
-                    code += "\n variaball" + moves[i-1].MoveValue + " = " + moves[i].MoveValue + "; \n";
+                    code += "\t variaball" + moves[i-1].MoveValue + " = " + moves[i].MoveValue + "; \n";
                     break;
                 case PlayerMoves.AddMachine:
-                    code += BuildOperation(moves[i], moves[i+1]);
+                    code += BuildOperation(moves[i], moves[i+1], "");
                     i++;
                     break;
                 case PlayerMoves.SubMachine:
-                    code += BuildOperation(moves[i], moves[i + 1]);
+                    code += BuildOperation(moves[i], moves[i + 1], "");
                     i++;
                     break;
                 case PlayerMoves.MultMachine:
-                    code += BuildOperation(moves[i], moves[i + 1]);
+                    code += BuildOperation(moves[i], moves[i + 1], "");
                     i++;
                     break;
                 default:
@@ -152,21 +139,21 @@ public class CodeBuilder : MonoBehaviour
     {
         string codeString = "";
         List<Variaball> balls = lvlMngr.GetVariaballsList();
-        codeString = "public static void Main() \n { \n Player player = new Player(); \n ";
+        codeString = "public static void Main() \n { \n \t Player player = new Player(); \n ";
 
         if (isForExists())
         {
-            codeString += "int i; \n";
+            codeString += "\t int i; \n";
         }
 
         if (isSwitchExists())
         {
-            codeString += "bool isSwitch = false; \n"; 
+            codeString += "\t bool isSwitch = false; \n"; 
         }
 
         foreach (Variaball ball in balls)
         {
-            codeString += "int variaball" + ball.GetID() + "; \n ";
+            codeString += "\t int variaball" + ball.GetID() + "; \n ";
         }
 
         return codeString;
@@ -198,12 +185,12 @@ public class CodeBuilder : MonoBehaviour
         return false;
     }
 
-    public string BuildMove(Move DirMove)
+    public string BuildMove(Move DirMove, string tab)
     {
-        return "\n Player.Move( " + DirMove.MoveName + " );\n";
+        return tab+"\t Player.Move( " + DirMove.MoveName + " );\n";
     }
 
-    public string BuildOperation(Move OpMachine, Move Ball)
+    public string BuildOperation(Move OpMachine, Move Ball, string tab)
     {
         string sign = "";
         switch (OpMachine.MoveName)
@@ -218,24 +205,24 @@ public class CodeBuilder : MonoBehaviour
                 sign = "*";
                 break;
         }
-        return "\n variaball" + Ball.MoveValue+ " " + sign + " = " + OpMachine.MoveValue + "; \n";
+        return tab+"\t variaball" + Ball.MoveValue+ " " + sign + " = " + OpMachine.MoveValue + "; \n";
     }
 
     public string BuildForWalk(Move ForMove, Move DirMove)
     {
-        return "\n " +
-            "for (i = 0; i < "+ ForMove.MoveValue+ "; i++) \n { "+
-            BuildMove(DirMove)+
-             " \n }" +
+        return "\t " +
+            "for (i = 0; i < "+ ForMove.MoveValue+ "; i++) \n \t{ "+
+            BuildMove(DirMove,"\n\t")+
+             " \n \t }" +
             "\n";
     }
 
     public string BuildForMachine(Move ForMachine, Move TypeMachine, Move Ball)
     {
-        return "\n " +
-            "for (i = 0; i < " + ForMachine.MoveValue + "; i++) \n { " +
-            BuildOperation(TypeMachine, Ball)+
-             " \n }" +
+        return "\t " +
+            "for (i = 0; i < " + ForMachine.MoveValue + "; i++) \n \t{ " +
+            BuildOperation(TypeMachine, Ball, "\n\t")+
+             " \n \t }" +
             "\n";
     }
 }
