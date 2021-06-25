@@ -36,22 +36,16 @@ public class MenuManager : MonoBehaviour
 
     private void BuildLevelButtons()
     {
-        string folderName = Application.dataPath + "/Scenes";
-        var dirInfo = new DirectoryInfo(folderName);
-        var allFileInfos = dirInfo.GetFiles("*.unity", SearchOption.TopDirectoryOnly);
-        foreach (var fileInfo in allFileInfos)
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
+        for (int i = 1; i < sceneCount; i++)
         {
-            if (fileInfo.Name.Contains("Menu"))
-            {
-                continue;
-            }
             var btn = Instantiate(LevelButtonPrefab, ParentsGrid);
-            var name = @fileInfo.Name.Split('.')[0];
+            var name = i.ToString("D2");
             btn.name = name;
             btn.GetComponentInChildren<TextMeshProUGUI>().text = name;
             btn.GetComponent<Button>().onClick.AddListener(delegate { LoadLevel(name); });
-            Debug.Log("Found a scene file: " + name);
         }
+            Debug.Log($"Found {sceneCount-1} Levels");
     }
 
     private void ShowLevels()
