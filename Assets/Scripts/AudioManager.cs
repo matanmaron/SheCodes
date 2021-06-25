@@ -31,9 +31,6 @@ public class AudioManager : MonoBehaviour
     const string DROP = "Drop";
     const string END_LEVEL_REACHED = "End Level Reached";
     const string ERROR = "Error";
-    const string MACHINE_DONE = "Machine Done";
-    const string MACHINE_WORKING_1 = "Machine Working 1";
-    const string MACHINE_WORKING_2 = "Machine Working 2";
     const string MOVE_1 = "Move 1";
     const string MOVE_2 = "Move 2";
     const string MOVE_3 = "Move 3";
@@ -42,6 +39,7 @@ public class AudioManager : MonoBehaviour
     const string PLACE_ON_PEDESTAL_2 = "Place On Pedestal 2";
     const string SWITCH_1 = "Switch 1";
     const string SWITCH_2 = "Switch 2";
+    const string OUTOFMOVES = "sad-trombone";
 
     void Start()
     {
@@ -49,8 +47,12 @@ public class AudioManager : MonoBehaviour
         NextMusicFile();
         Player.OnDropVariaball += PlayDrop;
         LevelManager.OnLevelEnd += PlayEndLevelReached;
-        //error
-
+        Player.OnIllegalAction += PlayError;
+        LevelManager.OnOutOfMoves += PlayOutOfMoves;
+        Player.OnWalk += PlayMove;
+        Player.OnPickUpVariaball += PlayPickUp;
+        //place
+        Player.OnPressSwitch += PlaySwitch;
     }
 
     public void PlayMenu()
@@ -111,24 +113,6 @@ public class AudioManager : MonoBehaviour
         PlayEffect(ERROR);
     }
 
-    void PlayMachineDone()
-    {
-        PlayEffect(MACHINE_DONE);
-    }
-
-    void PlayMachineWorking()
-    {
-        var res = Random.Range(1, 3);
-        if (res==1)
-        {
-            PlayEffect(MACHINE_WORKING_1);
-        }
-        else
-        {
-            PlayEffect(MACHINE_WORKING_2);
-        }
-    }
-
     void PlayMove()
     {
         var res = Random.Range(1, 4);
@@ -175,5 +159,10 @@ public class AudioManager : MonoBehaviour
         {
             PlayEffect(SWITCH_2);
         }
+    }
+
+    void PlayOutOfMoves()
+    {
+        PlayEffect(OUTOFMOVES);
     }
 }
