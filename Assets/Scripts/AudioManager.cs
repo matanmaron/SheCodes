@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
 {
@@ -28,10 +28,29 @@ public class AudioManager : MonoBehaviour
     private int musicFileNumber = -1;
     private int effectPlayerNumber = -1;
 
+    const string DROP = "Drop";
+    const string END_LEVEL_REACHED = "End Level Reached";
+    const string ERROR = "Error";
+    const string MACHINE_DONE = "Machine Done";
+    const string MACHINE_WORKING_1 = "Machine Working 1";
+    const string MACHINE_WORKING_2 = "Machine Working 2";
+    const string MOVE_1 = "Move 1";
+    const string MOVE_2 = "Move 2";
+    const string MOVE_3 = "Move 3";
+    const string PICKUP = "PickUp";
+    const string PLACE_ON_PEDESTAL_1 = "Place On Pedestal 1";
+    const string PLACE_ON_PEDESTAL_2 = "Place On Pedestal 2";
+    const string SWITCH_1 = "Switch 1";
+    const string SWITCH_2 = "Switch 2";
+
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         NextMusicFile();
+        Player.OnDropVariaball += PlayDrop;
+        LevelManager.OnLevelEnd += PlayEndLevelReached;
+        //error
+
     }
 
     public void PlayMenu()
@@ -39,6 +58,7 @@ public class AudioManager : MonoBehaviour
         musicFileNumber = -1;
         NextMusicFile();
     }
+
     public void NextMusicFile()
     {
         musicFileNumber++;
@@ -60,7 +80,7 @@ public class AudioManager : MonoBehaviour
         {
             effectPlayerNumber = 0;
         }
-        Debug.Log($"Loading music file: {name}");
+        Debug.Log($"Loading sfx file: {name}");
         var clip = Resources.Load<AudioClip>($"SFX/{name}");
         SFXPlayer[effectPlayerNumber].clip = clip;
         SFXPlayer[effectPlayerNumber].Play();
@@ -74,5 +94,86 @@ public class AudioManager : MonoBehaviour
             player.mute = sfx;
         }
         Debug.Log($"mute music is now: {music} | mute sfx is now: {sfx}");
+    }
+
+    void PlayDrop()
+    {
+        PlayEffect(DROP);
+    }
+
+    void PlayEndLevelReached()
+    {
+        PlayEffect(END_LEVEL_REACHED);
+    }
+
+    void PlayError()
+    {
+        PlayEffect(ERROR);
+    }
+
+    void PlayMachineDone()
+    {
+        PlayEffect(MACHINE_DONE);
+    }
+
+    void PlayMachineWorking()
+    {
+        var res = Random.Range(1, 3);
+        if (res==1)
+        {
+            PlayEffect(MACHINE_WORKING_1);
+        }
+        else
+        {
+            PlayEffect(MACHINE_WORKING_2);
+        }
+    }
+
+    void PlayMove()
+    {
+        var res = Random.Range(1, 4);
+        if (res==1)
+        {
+            PlayEffect(MOVE_1);
+        }
+        else if (res==2)
+        {
+            PlayEffect(MOVE_2);
+        }
+        else
+        {
+            PlayEffect(MOVE_3);
+        }
+    }
+
+    void PlayPickUp()
+    {
+        PlayEffect(PICKUP);
+    }
+
+    void PlayPlaceOnPedestal()
+    {
+        var res = Random.Range(1, 3);
+        if (res == 1)
+        {
+            PlayEffect(PLACE_ON_PEDESTAL_1);
+        }
+        else
+        {
+            PlayEffect(PLACE_ON_PEDESTAL_2);
+        }
+    }
+
+    void PlaySwitch()
+    {
+        var res = Random.Range(1, 3);
+        if (res == 1)
+        {
+            PlayEffect(SWITCH_1);
+        }
+        else
+        {
+            PlayEffect(SWITCH_2);
+        }
     }
 }
