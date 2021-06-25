@@ -17,6 +17,7 @@ public class Pedestal : MonoBehaviour
     [HideInInspector] public int activeConnections = 0;
     [SerializeField] private TextMeshPro myText = null;
 
+
     void Start()
     {
         SetMyText();

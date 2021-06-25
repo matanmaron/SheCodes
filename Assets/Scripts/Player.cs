@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public static event Action OnStopWalking;
     public static event Action OnPickUpVariaball;
     public static event Action OnDropVariaball;
+    public static event Action OnPlaceVariaballOnPedestal;
     public static event Action OnIllegalAction;
     public static event Action OnUse;
     public static event Action<int> OnUseAsMachine;
@@ -585,6 +586,7 @@ public class Player : MonoBehaviour
                     OnAnyAction?.Invoke();
                     OnDropVariaball?.Invoke();
                     myVariaball.GoToPedestal(destinationBlock.myPedestal);
+                    OnPlaceVariaballOnPedestal?.Invoke();
                     myVariaball = null;
                     OnPlayerAction?.Invoke(PlayerMoves.Drop, MOVECOST);
                     OnPlayerAction?.Invoke(PlayerMoves.Ball, ballId);
