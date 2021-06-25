@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public static event Action OnStopWalking;
     public static event Action OnPickUpVariaball;
     public static event Action OnDropVariaball;
+    public static event Action OnIllegalAction;
     public static event Action OnUse;
     public static event Action<int> OnUseAsMachine;
     public static event Action<OperationMachine.OperationType, int>  OnUseOpMachine;
@@ -250,6 +251,7 @@ public class Player : MonoBehaviour
             case Direction.up:
                 if (currentBlockIndex + GameManager.Instance.LevelManager.levelGridX > GameManager.Instance.LevelManager.levelGridY * GameManager.Instance.LevelManager.levelGridX)
                 {
+                    OnIllegalAction?.Invoke();
                     return false;
                 }
                 else
@@ -260,6 +262,7 @@ public class Player : MonoBehaviour
             case Direction.down:
                 if (currentBlockIndex - GameManager.Instance.LevelManager.levelGridX < 0)
                 {
+                    OnIllegalAction?.Invoke();
                     return false;
                 }
                 else
@@ -270,6 +273,7 @@ public class Player : MonoBehaviour
             case Direction.left:
                 if (currentBlockIndex % GameManager.Instance.LevelManager.levelGridX == 0)
                 {
+                    OnIllegalAction?.Invoke();
                     return false;
                 }
                 else
@@ -280,6 +284,7 @@ public class Player : MonoBehaviour
             case Direction.right:
                 if (currentBlockIndex + 1 % GameManager.Instance.LevelManager.levelGridX == 0)
                 {
+                    OnIllegalAction?.Invoke();
                     return false;
                 }
                 else
@@ -293,6 +298,7 @@ public class Player : MonoBehaviour
         
             if (GameManager.Instance.LevelManager.blocksList[newBlockIndex].isWalkable == false)
             {
+                OnIllegalAction?.Invoke();
                 return false;
             }
         }
@@ -393,6 +399,7 @@ public class Player : MonoBehaviour
                 break;
         }
         
+        OnIllegalAction?.Invoke();
         return null;
     }
 
@@ -549,6 +556,7 @@ public class Player : MonoBehaviour
                 break;
         }
         
+        OnIllegalAction?.Invoke();
         return null;
     }
 
@@ -646,6 +654,7 @@ public class Player : MonoBehaviour
                 break;
         }
         
+        OnIllegalAction?.Invoke();
         return null;
     }
 
@@ -782,6 +791,7 @@ public class Player : MonoBehaviour
                 break;
         }
         
+        OnIllegalAction?.Invoke();    
         return null;
     }
 
