@@ -51,7 +51,7 @@ public class AudioManager : MonoBehaviour
         LevelManager.OnOutOfMoves += PlayOutOfMoves;
         Player.OnWalk += PlayMove;
         Player.OnPickUpVariaball += PlayPickUp;
-        //place
+        Player.OnPlaceVariaballOnPedestal += PlayPlaceOnPedestal;
         Player.OnPressSwitch += PlaySwitch;
     }
 
