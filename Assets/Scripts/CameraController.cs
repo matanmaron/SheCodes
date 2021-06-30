@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
+using System.Linq;
 
 public class CameraController : MonoBehaviour
 {
@@ -34,28 +36,31 @@ public class CameraController : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            CheckUI();
+            if (CheckUI())
+            {
+                return;
+            }
             touchStart = Input.mousePosition;
         }
         
 
         if (Input.GetMouseButton(0))
         {
-            CheckUI();
+            if (CheckUI())
+            {
+                return;
+            }
             MoveCamera();
         }
     }
 
-    private void CheckUI()
+    private bool CheckUI()
     {
-        RaycastHit hitInfo;
-        if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hitInfo))
-        {
-            if (hitInfo.collider.gameObject.tag == "UI")
-            {
-                return;
-            }
-        }
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        List<RaycastResult> raysastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, raysastResults);
+        return raysastResults.Any(x => x.gameObject.tag == "UI");
     }
 
     private void MoveCamera()
