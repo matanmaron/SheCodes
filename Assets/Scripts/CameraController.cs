@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         LevelManager.OnLevelEnd += OnLevelEnd;
+        gameOver = false;
     }
 
     private void OnLevelEnd()
