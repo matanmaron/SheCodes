@@ -34,13 +34,27 @@ public class CameraController : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
+            CheckUI();
             touchStart = Input.mousePosition;
         }
         
 
         if (Input.GetMouseButton(0))
         {
+            CheckUI();
             MoveCamera();
+        }
+    }
+
+    private void CheckUI()
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hitInfo))
+        {
+            if (hitInfo.collider.gameObject.tag == "UI")
+            {
+                return;
+            }
         }
     }
 
