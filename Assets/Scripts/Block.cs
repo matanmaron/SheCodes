@@ -19,7 +19,7 @@ public class Block : MonoBehaviour
         Pedestal
     }
 
-    [HideInInspector] public int myIndex;
+    [SerializeField] public int myIndex;
     [HideInInspector] public GameObject  childRole = null;
     public bool isWalkable = false;
     [HideInInspector] public Variaball myVariaball = null;

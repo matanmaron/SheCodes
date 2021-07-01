@@ -160,10 +160,11 @@ public class Player : MonoBehaviour
                 switch (moveDirection)
                 {
                 case Direction.up:
-                    newBlockIndex = currentBlockIndex + GameManager.Instance.LevelManager.levelGridY;
+                    newBlockIndex = currentBlockIndex + GameManager.Instance.LevelManager.levelGridX;
+                    Debug.Log(newBlockIndex);
                     break;
                 case Direction.down:
-                    newBlockIndex = currentBlockIndex - GameManager.Instance.LevelManager.levelGridY;
+                    newBlockIndex = currentBlockIndex - GameManager.Instance.LevelManager.levelGridX;
                     break;
                 case Direction.left:
                     newBlockIndex = currentBlockIndex - 1;
@@ -211,11 +212,11 @@ public class Player : MonoBehaviour
             switch (moveDirection)
             {
             case Direction.up:
-                newBlockIndex = currentBlockIndex + GameManager.Instance.LevelManager.levelGridY;
+                newBlockIndex = currentBlockIndex + GameManager.Instance.LevelManager.levelGridX;
                     OnPlayerAction?.Invoke(PlayerMoves.Up, MOVECOST);
                     break;
             case Direction.down:
-                newBlockIndex = currentBlockIndex - GameManager.Instance.LevelManager.levelGridY;
+                newBlockIndex = currentBlockIndex - GameManager.Instance.LevelManager.levelGridX;
                     OnPlayerAction?.Invoke(PlayerMoves.Down, MOVECOST);
                     break;
             case Direction.left:
