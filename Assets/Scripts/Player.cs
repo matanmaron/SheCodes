@@ -161,7 +161,6 @@ public class Player : MonoBehaviour
                 {
                 case Direction.up:
                     newBlockIndex = currentBlockIndex + GameManager.Instance.LevelManager.levelGridX;
-                    Debug.Log(newBlockIndex);
                     break;
                 case Direction.down:
                     newBlockIndex = currentBlockIndex - GameManager.Instance.LevelManager.levelGridX;
