@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,14 +16,19 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject CreditsPanel = null;
     [SerializeField] private GameObject OptionsPanel = null;
     [SerializeField] private GameObject HowToPlayPanel = null;
-
+    [SerializeField] private Image AndroidInstall = null;
     [SerializeField] Transform ParentsGrid = null;
     [SerializeField] GameObject LevelButtonPrefab = null;
-
+    const string URL = @"https://drive.google.com/uc?export=download&id=18ftMMDTJjuZI4K8E3mmd55yXqCx7sV_-";
     private int lastLevel = 0;
 
     public void Start()
     {
+#if !UNITY_ANDROID
+        StartCoroutine(GetImage(AndroidInstall));
+#else
+        Destroy(AndroidInstall);
+#endif
         AudioManager.Instance.PlayMenu();
         OnBack();
         lastLevel = PlayerPrefs.GetInt("level", 0);
@@ -32,6 +38,25 @@ public class MenuManager : MonoBehaviour
             ContinueBTN.interactable = false;
         }
         BuildLevelButtons();
+    }
+
+    IEnumerator GetImage(Image img)
+    {
+        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(URL))
+        {
+            yield return uwr.SendWebRequest();
+            if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("ERROR IN QR CODE IMG");
+            }
+            else
+            {
+                Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
+                var bytes = texture.EncodeToPNG();
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(texture.width / 2, texture.height / 2));
+                img.overrideSprite = sprite;
+            }
+        }
     }
 
     private void BuildLevelButtons()

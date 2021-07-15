@@ -15,9 +15,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; } //singleton
     //public Player Player { get; internal set; }
     public LevelManager LevelManager { get; internal set; }
+    public bool IsDemo = false;
 
     private void Awake()
     {
+
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
@@ -29,5 +31,9 @@ public class GameManager : MonoBehaviour
         
         DontDestroyOnLoad(this.gameObject);
     }
-    
+    private void Start()
+    {
+        IsDemo = PlayerPrefs.GetInt("isdemo", 0) == 0 ? false : true;
+        Debug.Log($"GameManager - DEMO IS NOW - {IsDemo}");
+    }
 }
