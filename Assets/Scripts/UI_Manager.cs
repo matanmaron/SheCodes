@@ -40,7 +40,7 @@ public class UI_Manager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-   
+
 
     private void OnEnable()
     {
@@ -94,14 +94,14 @@ public class UI_Manager : MonoBehaviour
     }
     public void VariaballHeld(bool isHeld)
     {
-        
+
         VariaballUI.SetActive(isHeld);
         Debug.Log("isHeld: " + isHeld);
 
         if (isHeld)
         {
             //Player player = GameObject.Find("Player").GetComponent<Player>();
-            
+
             if (player.myVariaball.isNull)
             {
                 variableText.text = "Null";
@@ -116,7 +116,7 @@ public class UI_Manager : MonoBehaviour
     public void VariaballModified()
     {
         //Player player = GameObject.Find("Player").GetComponent<Player>();
-        
+
         variableText.text = player.myVariaball.myInt.ToString();
     }
 
@@ -205,7 +205,7 @@ public class UI_Manager : MonoBehaviour
 
     public void OnResetButton()
     {
-       
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         EndPanel.SetActive(false);
         SettingsPanel.SetActive(false);
@@ -213,11 +213,19 @@ public class UI_Manager : MonoBehaviour
 
     public void OnNextButton()
     {
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         EndPanel.SetActive(false);
         SettingsPanel.SetActive(false);
         SetupLevelUI();
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
+        if (SceneManager.GetActiveScene().buildIndex >= sceneCount-1)
+        {
+            Debug.Log($"{SceneManager.GetActiveScene().buildIndex} is the last level");
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
 }
