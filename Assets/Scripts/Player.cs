@@ -14,15 +14,15 @@ public class Player : MonoBehaviour
     public static event Action OnIllegalAction;
     public static event Action OnUse;
     public static event Action<int> OnUseAsMachine;
-    public static event Action<OperationMachine.OperationType, int>  OnUseOpMachine;
+    public static event Action<OperationMachine.OperationType, int> OnUseOpMachine;
     public static event Action OnPressSwitch;
 
-    public enum PlayerMoves { ForWalk, ForMachine, Up, Down, Left, Right, Pickup, Drop, Press, AssignMachine, Ball, AddMachine, SubMachine, MultMachine}
+    public enum PlayerMoves { ForWalk, ForMachine, Up, Down, Left, Right, Pickup, Drop, Press, AssignMachine, Ball, AddMachine, SubMachine, MultMachine }
     public static event Action<PlayerMoves, int> OnPlayerAction;
     private const int MOVECOST = 1;
 
-    public enum Direction {up, down, left, right}
-    public enum State {Idle, Moving, PickingUp, Dropping, PressingSwitch, UsingMachine}
+    public enum Direction { up, down, left, right }
+    public enum State { Idle, Moving, PickingUp, Dropping, PressingSwitch, UsingMachine }
     [SerializeField] public State state = State.Idle;
 
 
@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
         }
 
         TurnTowardsAction(moveDirection);
-        
+
         switch (state)
         {
             case State.Idle:
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-    
+
     private void TurnTowardsCamera()
     {
         transform.rotation = Quaternion.Euler(Vector3.down * 180);
@@ -103,24 +103,24 @@ public class Player : MonoBehaviour
         switch (direction)
         {
             case Player.Direction.up:
-                dir = new Vector3(0,0,0);
+                dir = new Vector3(0, 0, 0);
                 break;
             case Player.Direction.down:
-                dir = new Vector3(0,-180,0);
+                dir = new Vector3(0, -180, 0);
 
                 break;
             case Player.Direction.left:
-                dir = new Vector3(0,-90,0);
+                dir = new Vector3(0, -90, 0);
                 break;
             case Player.Direction.right:
-                dir = new Vector3(0,90,0);
+                dir = new Vector3(0, 90, 0);
 
                 break;
         }
 
         transform.rotation = Quaternion.Euler(dir);
     }
-    
+
     private void Move()
     {
         var relativeTime = Mathf.InverseLerp(moveStartTime, moveEndTime, Time.time);
@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
         var newPos = new Vector3(newXPos, transform.position.y, newZPos);
 
         transform.position = newPos;
-        
+
 
         if (transform.position == movementEndPos)
         {
@@ -138,7 +138,7 @@ public class Player : MonoBehaviour
 
             if (stepsCounter == 0)
             {
-                
+
                 state = State.Idle;
 
                 OnStopWalking?.Invoke();
@@ -148,8 +148,8 @@ public class Player : MonoBehaviour
                 {
                     GameManager.Instance.LevelManager.EndLevel();
                 }
-             
-            
+
+
             }
             else
             {
@@ -159,26 +159,26 @@ public class Player : MonoBehaviour
 
                 switch (moveDirection)
                 {
-                case Direction.up:
-                    newBlockIndex = currentBlockIndex + GameManager.Instance.LevelManager.levelGridX;
-                    break;
-                case Direction.down:
-                    newBlockIndex = currentBlockIndex - GameManager.Instance.LevelManager.levelGridX;
-                    break;
-                case Direction.left:
-                    newBlockIndex = currentBlockIndex - 1;
-                    break;
-                case Direction.right:
-                    newBlockIndex = currentBlockIndex + 1;
-                    break;
-                default:
-                    break;
+                    case Direction.up:
+                        newBlockIndex = currentBlockIndex + GameManager.Instance.LevelManager.levelGridX;
+                        break;
+                    case Direction.down:
+                        newBlockIndex = currentBlockIndex - GameManager.Instance.LevelManager.levelGridX;
+                        break;
+                    case Direction.left:
+                        newBlockIndex = currentBlockIndex - 1;
+                        break;
+                    case Direction.right:
+                        newBlockIndex = currentBlockIndex + 1;
+                        break;
+                    default:
+                        break;
                 }
-                
+
                 movementEndPos = GameManager.Instance.LevelManager.blocksList[newBlockIndex].transform.position + new Vector3(0, GameManager.Instance.LevelManager.blocksList[newBlockIndex].GetComponentInChildren<MeshRenderer>().bounds.extents.y + GameManager.Instance.playerYOffset, 0);
 
                 currentBlockIndex = newBlockIndex;
-                
+
                 moveStartTime = Time.time;
                 moveEndTime = moveStartTime + GameManager.Instance.playerMoveDuration;
             }
@@ -186,8 +186,8 @@ public class Player : MonoBehaviour
 
     }
 
-    
-    public void StartMoving() 
+
+    public void StartMoving()
     {
         if (state == State.Moving || state == State.PickingUp || state == State.Dropping)
         {
@@ -195,11 +195,11 @@ public class Player : MonoBehaviour
         }
 
         stepsCounter = ForHandler.Instance.forNum;
-        if(stepsCounter > 1)
+        if (stepsCounter > 1)
         {
             OnPlayerAction?.Invoke(PlayerMoves.ForWalk, stepsCounter);
         }
-        
+
         if (isBlockWalkable(moveDirection))
         {
             OnAnyAction?.Invoke();
@@ -210,33 +210,33 @@ public class Player : MonoBehaviour
 
             switch (moveDirection)
             {
-            case Direction.up:
-                newBlockIndex = currentBlockIndex + GameManager.Instance.LevelManager.levelGridX;
+                case Direction.up:
+                    newBlockIndex = currentBlockIndex + GameManager.Instance.LevelManager.levelGridX;
                     OnPlayerAction?.Invoke(PlayerMoves.Up, MOVECOST);
                     break;
-            case Direction.down:
-                newBlockIndex = currentBlockIndex - GameManager.Instance.LevelManager.levelGridX;
+                case Direction.down:
+                    newBlockIndex = currentBlockIndex - GameManager.Instance.LevelManager.levelGridX;
                     OnPlayerAction?.Invoke(PlayerMoves.Down, MOVECOST);
                     break;
-            case Direction.left:
-                newBlockIndex = currentBlockIndex - 1;
+                case Direction.left:
+                    newBlockIndex = currentBlockIndex - 1;
                     OnPlayerAction?.Invoke(PlayerMoves.Left, MOVECOST);
                     break;
-            case Direction.right:
-                newBlockIndex = currentBlockIndex + 1;
+                case Direction.right:
+                    newBlockIndex = currentBlockIndex + 1;
                     OnPlayerAction?.Invoke(PlayerMoves.Right, MOVECOST);
                     break;
-            default:
-                break;
+                default:
+                    break;
             }
-            
+
             movementEndPos = GameManager.Instance.LevelManager.blocksList[newBlockIndex].transform.position + new Vector3(0, GameManager.Instance.LevelManager.blocksList[newBlockIndex].GetComponentInChildren<MeshRenderer>().bounds.extents.y + GameManager.Instance.playerYOffset, 0);
 
             currentBlockIndex = newBlockIndex;
-            
+
             moveStartTime = Time.time;
             moveEndTime = moveStartTime + GameManager.Instance.playerMoveDuration;
-            
+
             state = State.Moving;
         }
     }
@@ -245,58 +245,58 @@ public class Player : MonoBehaviour
     {
         int newBlockIndex = currentBlockIndex;
 
-        for (int i=0; i<ForHandler.Instance.forNum; i++)
+        for (int i = 0; i < ForHandler.Instance.forNum; i++)
         {
             switch (direction)
             {
-            case Direction.up:
-                if (currentBlockIndex + GameManager.Instance.LevelManager.levelGridX > GameManager.Instance.LevelManager.levelGridY * GameManager.Instance.LevelManager.levelGridX)
-                {
-                    OnIllegalAction?.Invoke();
-                    return false;
-                }
-                else
-                {
-                    newBlockIndex += GameManager.Instance.LevelManager.levelGridX;
-                }
-                break;
-            case Direction.down:
-                if (currentBlockIndex - GameManager.Instance.LevelManager.levelGridX < 0)
-                {
-                    OnIllegalAction?.Invoke();
-                    return false;
-                }
-                else
-                {
-                    newBlockIndex -= GameManager.Instance.LevelManager.levelGridX;
-                }
-                break;
-            case Direction.left:
-                if (currentBlockIndex % GameManager.Instance.LevelManager.levelGridX == 0)
-                {
-                    OnIllegalAction?.Invoke();
-                    return false;
-                }
-                else
-                {
-                    newBlockIndex -= 1;
-                }
-                break;
-            case Direction.right:
-                if (currentBlockIndex + 1 % GameManager.Instance.LevelManager.levelGridX == 0)
-                {
-                    OnIllegalAction?.Invoke();
-                    return false;
-                }
-                else
-                {
-                    newBlockIndex += 1;
-                }
-                break;
-            default:
-                break;
+                case Direction.up:
+                    if (currentBlockIndex + GameManager.Instance.LevelManager.levelGridX > GameManager.Instance.LevelManager.levelGridY * GameManager.Instance.LevelManager.levelGridX)
+                    {
+                        OnIllegalAction?.Invoke();
+                        return false;
+                    }
+                    else
+                    {
+                        newBlockIndex += GameManager.Instance.LevelManager.levelGridX;
+                    }
+                    break;
+                case Direction.down:
+                    if (currentBlockIndex - GameManager.Instance.LevelManager.levelGridX < 0)
+                    {
+                        OnIllegalAction?.Invoke();
+                        return false;
+                    }
+                    else
+                    {
+                        newBlockIndex -= GameManager.Instance.LevelManager.levelGridX;
+                    }
+                    break;
+                case Direction.left:
+                    if (currentBlockIndex % GameManager.Instance.LevelManager.levelGridX == 0)
+                    {
+                        OnIllegalAction?.Invoke();
+                        return false;
+                    }
+                    else
+                    {
+                        newBlockIndex -= 1;
+                    }
+                    break;
+                case Direction.right:
+                    if (currentBlockIndex + 1 % GameManager.Instance.LevelManager.levelGridX == 0)
+                    {
+                        OnIllegalAction?.Invoke();
+                        return false;
+                    }
+                    else
+                    {
+                        newBlockIndex += 1;
+                    }
+                    break;
+                default:
+                    break;
             }
-        
+
             if (GameManager.Instance.LevelManager.blocksList[newBlockIndex].isWalkable == false)
             {
                 OnIllegalAction?.Invoke();
@@ -319,7 +319,7 @@ public class Player : MonoBehaviour
     public void PressSwitchInitial()
     {
         ForHandler.Instance.ResetFor();
-        
+
         if (state == State.PressingSwitch)
         {
             state = State.Idle;
@@ -342,14 +342,14 @@ public class Player : MonoBehaviour
             switchBtn.PressSwitch();
             OnPlayerAction?.Invoke(PlayerMoves.Press, 0);
         }
-        
+
         state = State.Idle;
     }
 
     public Switch AvailableSwitch(Direction direction)
     {
         int blockIndex = 0;
-        
+
         switch (direction)
         {
             case Direction.up:
@@ -382,7 +382,7 @@ public class Player : MonoBehaviour
                     if (GameManager.Instance.LevelManager.blocksList[blockIndex].myRole == Block.roles.Switch)
                     {
                         //OnAction?.Invoke();
-                        return GameManager.Instance.LevelManager.blocksList[blockIndex].GetComponentInChildren<Switch>();          
+                        return GameManager.Instance.LevelManager.blocksList[blockIndex].GetComponentInChildren<Switch>();
                     }
                 }
 
@@ -399,7 +399,7 @@ public class Player : MonoBehaviour
                 }
                 break;
         }
-        
+
         OnIllegalAction?.Invoke();
         return null;
     }
@@ -407,7 +407,7 @@ public class Player : MonoBehaviour
     public void PickUpOrDropInitial()
     {
         ForHandler.Instance.ResetFor();
-        
+
         if (state == State.PickingUp || state == State.Dropping)
         {
             state = State.Idle;
@@ -424,18 +424,18 @@ public class Player : MonoBehaviour
             }
         }
     }
-    
-    
+
+
     private void PickUpVariaball()
     {
         Block originBlock = availableVariaballBlock(moveDirection);
-        
-        
+
+
         if (originBlock)
         {
-            switch(originBlock.myRole)
+            switch (originBlock.myRole)
             {
-                
+
                 case Block.roles.ContainsVeriaball:
                     OnAnyAction?.Invoke();
                     OnPickUpVariaball?.Invoke();
@@ -463,16 +463,16 @@ public class Player : MonoBehaviour
                     break;
             }
         }
-        
-            
+
+
         state = State.Idle;
     }
-    
-    
+
+
     private Block availableVariaballBlock(Direction direction)
     {
         int blockIndex = 0;
-        
+
         switch (direction)
         {
             case Direction.up:
@@ -556,7 +556,7 @@ public class Player : MonoBehaviour
                 }
                 break;
         }
-        
+
         OnIllegalAction?.Invoke();
         return null;
     }
@@ -572,7 +572,7 @@ public class Player : MonoBehaviour
         {
             case Block.roles.Nothing:
                 OnAnyAction?.Invoke();
-                OnDropVariaball?.Invoke();                
+                OnDropVariaball?.Invoke();
                 myVariaball.GoToBlock(destinationBlock);
                 myVariaball = null;
                 OnPlayerAction?.Invoke(PlayerMoves.Drop, MOVECOST);
@@ -580,7 +580,7 @@ public class Player : MonoBehaviour
 
                 break;
             case Block.roles.Pedestal:
-            
+
                 if (destinationBlock.myPedestal.myVariaball == null)
                 {
                     OnAnyAction?.Invoke();
@@ -593,14 +593,14 @@ public class Player : MonoBehaviour
                 }
                 break;
         }
-        
+
         state = State.Idle;
     }
 
     private Block availableDropSpot(Direction direction)
     {
         int blockIndex = 0;
-        
+
         switch (direction)
         {
             case Direction.up:
@@ -643,7 +643,7 @@ public class Player : MonoBehaviour
                 if (currentBlockIndex + 1 % GameManager.Instance.LevelManager.levelGridX > 0)
                 {
                     Debug.Log("2");
-                    
+
                     blockIndex = currentBlockIndex + 1;
                     if (GameManager.Instance.LevelManager.blocksList[blockIndex].myRole == Block.roles.Nothing || GameManager.Instance.LevelManager.blocksList[blockIndex].myRole == Block.roles.Pedestal)
                     {
@@ -655,14 +655,14 @@ public class Player : MonoBehaviour
                 }
                 break;
         }
-        
+
         OnIllegalAction?.Invoke();
         return null;
     }
 
     public void UseMachineInitial()
     {
-        
+
         if (state == State.UsingMachine)
         {
             state = State.Idle;
@@ -680,67 +680,68 @@ public class Player : MonoBehaviour
         if (machineBlock && myVariaball)
         {
             //OnAction?.Invoke();
-            
-            switch(machineBlock.myRole)
+            if (!myVariaball.isNull)
             {
-                
-                case Block.roles.AssignmentMachine:
-                    AssignmentMachine assignMachine = machineBlock.myMachine.GetComponent<AssignmentMachine>();
-                    myVariaball.myInt = assignMachine.UseThisMachine();
-                    UI_Manager.Instance.VariaballModified();
-                    
-                    OnAnyAction?.Invoke();
-                    OnUse?.Invoke();
-                    OnUseAsMachine?.Invoke(assignMachine.myInt);
-                    OnPlayerAction?.Invoke(PlayerMoves.AssignMachine, assignMachine.GetMachineValue());
+                switch (machineBlock.myRole)
+                {
 
-                    break;
-                case Block.roles.OperationMachine:
-                    OperationMachine opMachine = machineBlock.myMachine.GetComponent<OperationMachine>();
-                    int machineCounter = ForHandler.Instance.forNum;
-                    if (machineCounter > 1)
-                    {
-                        OnPlayerAction?.Invoke(PlayerMoves.ForMachine, machineCounter);
-                    }
+                    case Block.roles.AssignmentMachine:
+                        AssignmentMachine assignMachine = machineBlock.myMachine.GetComponent<AssignmentMachine>();
+                        myVariaball.myInt = assignMachine.UseThisMachine();
+                        UI_Manager.Instance.VariaballModified();
 
-                    for (int i=0; i< machineCounter; i++)
-                    {
-                        myVariaball.myInt = opMachine.UseThisMachine(myVariaball.myInt);
-              
-                    }
-                    
-                    OnAnyAction?.Invoke();
-                    OnUse?.Invoke();
-                    OnUseOpMachine?.Invoke(opMachine.myOperationType, opMachine.myInt);
+                        OnAnyAction?.Invoke();
+                        OnUse?.Invoke();
+                        OnUseAsMachine?.Invoke(assignMachine.myInt);
+                        OnPlayerAction?.Invoke(PlayerMoves.AssignMachine, assignMachine.GetMachineValue());
 
-                    switch (opMachine.GetMachineType())
-                    {
-                        case 1:
-                            OnPlayerAction?.Invoke(PlayerMoves.AddMachine, opMachine.GetMachineValue());
-                            break;
-                        case -1:
-                            OnPlayerAction?.Invoke(PlayerMoves.SubMachine, opMachine.GetMachineValue());
-                            break;
-                        case 0:
-                            OnPlayerAction?.Invoke(PlayerMoves.MultMachine, opMachine.GetMachineValue());
-                            break;
-                    }
-                    OnPlayerAction?.Invoke(PlayerMoves.Ball, myVariaball.GetID());
-                    UI_Manager.Instance.VariaballModified();
-                    break;
+                        break;
+                    case Block.roles.OperationMachine:
+                        OperationMachine opMachine = machineBlock.myMachine.GetComponent<OperationMachine>();
+                        int machineCounter = ForHandler.Instance.forNum;
+                        if (machineCounter > 1)
+                        {
+                            OnPlayerAction?.Invoke(PlayerMoves.ForMachine, machineCounter);
+                        }
+
+                        for (int i = 0; i < machineCounter; i++)
+                        {
+                            myVariaball.myInt = opMachine.UseThisMachine(myVariaball.myInt);
+
+                        }
+
+                        OnAnyAction?.Invoke();
+                        OnUse?.Invoke();
+                        OnUseOpMachine?.Invoke(opMachine.myOperationType, opMachine.myInt);
+
+                        switch (opMachine.GetMachineType())
+                        {
+                            case 1:
+                                OnPlayerAction?.Invoke(PlayerMoves.AddMachine, opMachine.GetMachineValue());
+                                break;
+                            case -1:
+                                OnPlayerAction?.Invoke(PlayerMoves.SubMachine, opMachine.GetMachineValue());
+                                break;
+                            case 0:
+                                OnPlayerAction?.Invoke(PlayerMoves.MultMachine, opMachine.GetMachineValue());
+                                break;
+                        }
+                        OnPlayerAction?.Invoke(PlayerMoves.Ball, myVariaball.GetID());
+                        UI_Manager.Instance.VariaballModified();
+                        break;
+                }
             }
-
             ForHandler.Instance.ResetFor();
         }
 
-  
+
         state = State.Idle;
     }
 
     public Block AvailableMachine(Direction direction)
     {
         int blockIndex = 0;
-        
+
         switch (direction)
         {
             case Direction.up:
@@ -792,8 +793,8 @@ public class Player : MonoBehaviour
                 }
                 break;
         }
-        
-        OnIllegalAction?.Invoke();    
+
+        OnIllegalAction?.Invoke();
         return null;
     }
 

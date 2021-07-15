@@ -6,7 +6,7 @@ public class Variaball : MonoBehaviour
 {
     [Header("Change")]
     [SerializeField] public bool isNull = false;
-    [SerializeField] public int myInt = 3;  
+    [SerializeField] public int myInt = 0;  
 
     [Space(10)]
     [Header("Do Not Change")]
