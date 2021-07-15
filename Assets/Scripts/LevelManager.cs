@@ -56,7 +56,6 @@ public class LevelManager : MonoBehaviour
 
         //groundZ = levelCreator.emptyBlockPrefab.GetComponentInChildren<MeshRenderer>().bounds.extents.y;
         SetVariaballIds();
-        EndLevel();
     }
 
     void Update()
