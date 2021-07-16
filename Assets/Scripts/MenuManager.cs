@@ -32,11 +32,18 @@ public class MenuManager : MonoBehaviour
 #endif
         AudioManager.Instance.PlayMenu();
         OnBack();
-        lastLevel = PlayerPrefs.GetInt("level", 0);
-        if (lastLevel == 0)
+        if (GameManager.Instance.IsDemoActive)
         {
-            Debug.Log("no saved level");
             ContinueBTN.interactable = false;
+        }
+        else
+        {
+            lastLevel = PlayerPrefs.GetInt("level", 0);
+            if (lastLevel == 0)
+            {
+                Debug.Log("no saved level");
+                ContinueBTN.interactable = false;
+            }
         }
         BuildLevelButtons();
     }
