@@ -63,6 +63,7 @@ public class UI_Manager : MonoBehaviour
     void OnLevelEnd()
     {
         int sceneCount = SceneManager.sceneCountInBuildSettings;
+        PlayerPrefs.SetInt(SceneManager.GetActiveScene().buildIndex.ToString(), 1);
         if (SceneManager.GetActiveScene().buildIndex+1 >= sceneCount - 1)
         {
             PlayerPrefs.SetInt("level", 0);

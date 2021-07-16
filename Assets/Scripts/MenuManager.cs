@@ -17,6 +17,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject OptionsPanel = null;
     [SerializeField] private GameObject HowToPlayPanel = null;
     [SerializeField] private Image AndroidInstall = null;
+    [SerializeField] private Sprite LevelDone = null;
     [SerializeField] Transform ParentsGrid = null;
     [SerializeField] GameObject LevelButtonPrefab = null;
     const string URL = @"https://drive.google.com/uc?export=download&id=18ftMMDTJjuZI4K8E3mmd55yXqCx7sV_-";
@@ -68,6 +69,10 @@ public class MenuManager : MonoBehaviour
             var name = i.ToString("D2");
             btn.name = name;
             btn.GetComponentInChildren<TextMeshProUGUI>().text = name;
+            if (!GameManager.Instance.IsDemoActive && PlayerPrefs.GetInt(i.ToString(),0) == 1)
+            {
+                btn.GetComponent<Image>().sprite = LevelDone;
+            }
             btn.GetComponent<Button>().onClick.AddListener(delegate { LoadLevel(name); });
         }
             Debug.Log($"Found {sceneCount-1} Levels");

@@ -2071,6 +2071,7 @@ MonoBehaviour:
   OptionsPanel: {fileID: 1639932968}
   HowToPlayPanel: {fileID: 1647916935}
   AndroidInstall: {fileID: 510280860}
+  LevelDone: {fileID: 21300000, guid: 582705624cc83c244a2f98c0ea24fc29, type: 3}
   ParentsGrid: {fileID: 1800011023}
   LevelButtonPrefab: {fileID: 3230152025341918067, guid: 069e05adff2af80458216497f233c631, type: 3}
 --- !u!1001 &1191207456
