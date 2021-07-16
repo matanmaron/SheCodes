@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
                 {
                     lastClick = DateTime.Now;
                 }
-                if (DateTime.Now > lastClick.AddSeconds(5))
+                if (DateTime.Now > lastClick.AddMinutes(2))
                 {
                     Debug.Log("DEMO START");
                     isDemoRunning = true;
