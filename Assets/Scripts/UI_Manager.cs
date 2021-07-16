@@ -62,6 +62,15 @@ public class UI_Manager : MonoBehaviour
 
     void OnLevelEnd()
     {
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
+        if (SceneManager.GetActiveScene().buildIndex+1 >= sceneCount - 1)
+        {
+            PlayerPrefs.SetInt("level", 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("level", SceneManager.GetActiveScene().buildIndex + 1);
+        }
         EndText.text = CodeBuilder.Instance.BuildCode();
         EndContent.sizeDelta = new Vector2(EndContent.sizeDelta.x, 50 * EndText.text.Split('\n').Length);
         EndPanel.SetActive(true);
