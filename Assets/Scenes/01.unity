@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.48003107, g: 0.48414773, b: 0.97742134, a: 1}
+  m_IndirectSpecularColor: {r: 1.0121412, g: 0.89204496, b: 1.5546665, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13631,10 +13631,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb86cefe16799e49b63f2520ca447ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DemoVideo: {fileID: 0}
+  IsDemoRunning: 0
   playerYOffset: 0.08
   variaballYGeneralOffset: 0.1
   variaballYPedestalOffset: 1.1
   playerMoveDuration: 0.2
+  IsDemoActive: 0
 --- !u!4 &1834893615
 Transform:
   m_ObjectHideFlags: 0

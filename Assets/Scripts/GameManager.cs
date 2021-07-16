@@ -1,9 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] GameObject DemoVideoPrefab = null;
+    DateTime lastClick = DateTime.Now;
+    bool isDemoRunning= false;
+
     [Header("Change (not for every level)")]
     [SerializeField] public float playerYOffset = 0.72f;
     [SerializeField] public float variaballYGeneralOffset = 0.3f;
@@ -15,11 +21,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; } //singleton
     //public Player Player { get; internal set; }
     public LevelManager LevelManager { get; internal set; }
-    public bool IsDemo = false;
+    public bool IsDemoActive = false;
 
     private void Awake()
     {
-
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
@@ -31,9 +36,36 @@ public class GameManager : MonoBehaviour
         
         DontDestroyOnLoad(this.gameObject);
     }
+
     private void Start()
     {
-        IsDemo = PlayerPrefs.GetInt("isdemo", 0) == 0 ? false : true;
-        Debug.Log($"GameManager - DEMO IS NOW - {IsDemo}");
+        IsDemoActive = PlayerPrefs.GetInt("DemoMode", 0) == 0 ? false : true;
+    }
+
+    private void Update()
+    {
+        if (IsDemoActive)
+        {
+            if (!isDemoRunning)
+            {
+                if (Input.anyKey)
+                {
+                    lastClick = DateTime.Now;
+                }
+                if (DateTime.Now > lastClick.AddSeconds(5))
+                {
+                    Debug.Log("DEMO START");
+                    isDemoRunning = true;
+                    Instantiate(DemoVideoPrefab);
+                }
+            }
+        }
+    }
+
+    internal void StopDemo()
+    {
+        isDemoRunning = false;
+        lastClick = DateTime.Now;
+        SceneManager.LoadScene(0);
     }
 }
