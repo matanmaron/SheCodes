@@ -734,7 +734,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ef57e247813e9a9469a400300d8a4867, type: 2}
+  - {fileID: 2100000, guid: 2c9c5bef8cd397c4d975c667ffdb8049, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26108,7 +26108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myInt: 9
-  relatedGates: []
+  relatedGates:
+  - {fileID: 704517348}
   myBlockIndex: 0
   myVariaball: {fileID: 0}
   myConnectionLights:
@@ -26116,7 +26117,7 @@ MonoBehaviour:
   - {fileID: 164195623}
   - {fileID: 286964318}
   - {fileID: 1217481527}
-  activeConnections: 0
+  activeConnections: 1
   myText: {fileID: 56723694}
 --- !u!1 &530237162
 GameObject:
@@ -42361,7 +42362,7 @@ MonoBehaviour:
   - {fileID: 1341531712}
   - {fileID: 1760857401}
   - {fileID: 1707453699}
-  activeConnections: 0
+  activeConnections: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -94232,7 +94233,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 409232848352428191, guid: 60c1af2673d42f34eb0537c980842ca5, type: 3}
+  - {fileID: 2100000, guid: 847723e2c3723004ab7a3b0cee898cd2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100792,7 +100793,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ef57e247813e9a9469a400300d8a4867, type: 2}
+  - {fileID: 2100000, guid: 2c9c5bef8cd397c4d975c667ffdb8049, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101826,7 +101827,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 409232848352428191, guid: 60c1af2673d42f34eb0537c980842ca5, type: 3}
+  - {fileID: 2100000, guid: 847723e2c3723004ab7a3b0cee898cd2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
