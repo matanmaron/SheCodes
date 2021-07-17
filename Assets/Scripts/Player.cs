@@ -680,8 +680,6 @@ public class Player : MonoBehaviour
         if (machineBlock && myVariaball)
         {
             //OnAction?.Invoke();
-            if (!myVariaball.isNull)
-            {
                 switch (machineBlock.myRole)
                 {
 
@@ -697,40 +695,42 @@ public class Player : MonoBehaviour
 
                         break;
                     case Block.roles.OperationMachine:
-                        OperationMachine opMachine = machineBlock.myMachine.GetComponent<OperationMachine>();
-                        int machineCounter = ForHandler.Instance.forNum;
-                        if (machineCounter > 1)
+                        if (!myVariaball.isNull)
                         {
-                            OnPlayerAction?.Invoke(PlayerMoves.ForMachine, machineCounter);
+                            OperationMachine opMachine = machineBlock.myMachine.GetComponent<OperationMachine>();
+                            int machineCounter = ForHandler.Instance.forNum;
+                            if (machineCounter > 1)
+                            {
+                                OnPlayerAction?.Invoke(PlayerMoves.ForMachine, machineCounter);
+                            }
+
+                            for (int i = 0; i < machineCounter; i++)
+                            {
+                                myVariaball.myInt = opMachine.UseThisMachine(myVariaball.myInt);
+
+                            }
+
+                            OnAnyAction?.Invoke();
+                            OnUse?.Invoke();
+                            OnUseOpMachine?.Invoke(opMachine.myOperationType, opMachine.myInt);
+
+                            switch (opMachine.GetMachineType())
+                            {
+                                case 1:
+                                    OnPlayerAction?.Invoke(PlayerMoves.AddMachine, opMachine.GetMachineValue());
+                                    break;
+                                case -1:
+                                    OnPlayerAction?.Invoke(PlayerMoves.SubMachine, opMachine.GetMachineValue());
+                                    break;
+                                case 0:
+                                    OnPlayerAction?.Invoke(PlayerMoves.MultMachine, opMachine.GetMachineValue());
+                                    break;
+                            }
+                            OnPlayerAction?.Invoke(PlayerMoves.Ball, myVariaball.GetID());
+                            UI_Manager.Instance.VariaballModified();
                         }
-
-                        for (int i = 0; i < machineCounter; i++)
-                        {
-                            myVariaball.myInt = opMachine.UseThisMachine(myVariaball.myInt);
-
-                        }
-
-                        OnAnyAction?.Invoke();
-                        OnUse?.Invoke();
-                        OnUseOpMachine?.Invoke(opMachine.myOperationType, opMachine.myInt);
-
-                        switch (opMachine.GetMachineType())
-                        {
-                            case 1:
-                                OnPlayerAction?.Invoke(PlayerMoves.AddMachine, opMachine.GetMachineValue());
-                                break;
-                            case -1:
-                                OnPlayerAction?.Invoke(PlayerMoves.SubMachine, opMachine.GetMachineValue());
-                                break;
-                            case 0:
-                                OnPlayerAction?.Invoke(PlayerMoves.MultMachine, opMachine.GetMachineValue());
-                                break;
-                        }
-                        OnPlayerAction?.Invoke(PlayerMoves.Ball, myVariaball.GetID());
-                        UI_Manager.Instance.VariaballModified();
                         break;
                 }
-            }
             ForHandler.Instance.ResetFor();
         }
 
