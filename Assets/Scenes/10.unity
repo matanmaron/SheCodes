@@ -14755,7 +14755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719da606032e13143b15753070cec420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myInt: 3
+  myInt: 4
   ps: {fileID: 1353146999}
   myText: {fileID: 1353302178}
 --- !u!1 &403317453
@@ -25512,8 +25512,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975cb25d62e3c3f46b5ea2af0c1dcf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myOperationType: 0
-  myInt: 3
+  myOperationType: 1
+  myInt: 1
   ps: {fileID: 701883155}
   myText: {fileID: 34701242}
 --- !u!1 &490422028
@@ -26107,7 +26107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f52487b7040efd4a98b015465b26009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myInt: 3
+  myInt: 9
   relatedGates: []
   myBlockIndex: 0
   myVariaball: {fileID: 0}
@@ -58469,7 +58469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975cb25d62e3c3f46b5ea2af0c1dcf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myOperationType: 0
+  myOperationType: 2
   myInt: 3
   ps: {fileID: 403503853}
   myText: {fileID: 1416760197}
@@ -87288,7 +87288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bb8b2b5df3bac4bbbe6b5c4f0fe090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNull: 0
+  isNull: 1
   myInt: 3
   myBlockIndex: 21
   player: {fileID: 0}
@@ -93827,7 +93827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bb8b2b5df3bac4bbbe6b5c4f0fe090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNull: 0
+  isNull: 1
   myInt: 3
   myBlockIndex: 60
   player: {fileID: 0}

@@ -686,6 +686,7 @@ public class Player : MonoBehaviour
                     case Block.roles.AssignmentMachine:
                         AssignmentMachine assignMachine = machineBlock.myMachine.GetComponent<AssignmentMachine>();
                         myVariaball.myInt = assignMachine.UseThisMachine();
+                        myVariaball.isNull = false;
                         UI_Manager.Instance.VariaballModified();
 
                         OnAnyAction?.Invoke();
