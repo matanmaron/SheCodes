@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     //public Player Player { get; internal set; }
     public LevelManager LevelManager { get; internal set; }
     public bool IsDemoActive = false;
+    bool isShiftKeyDown = false;
 
     private void Awake()
     {
@@ -44,6 +45,20 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (!isShiftKeyDown && (Input.GetKeyDown(KeyCode.LeftShift)|| Input.GetKeyDown(KeyCode.RightShift)))
+        {
+            isShiftKeyDown = true;
+        }
+        if (isShiftKeyDown && (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift)))
+        {
+            isShiftKeyDown = false;
+        }
+        if (isShiftKeyDown && Input.GetKey(KeyCode.Alpha7))
+        {
+            Debug.Log("QUIT");
+            isShiftKeyDown = false;
+            Application.Quit();
+        }
         if (IsDemoActive)
         {
             if (!isDemoRunning)
