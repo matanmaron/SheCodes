@@ -67,9 +67,10 @@ public class GameManager : MonoBehaviour
                 {
                     lastClick = DateTime.Now;
                 }
-                if (DateTime.Now > lastClick.AddMinutes(2))
+                if (DateTime.Now > lastClick.AddMinutes(1))
                 {
                     Debug.Log("DEMO START");
+                    AudioManager.Instance.SetDemo(true);
                     isDemoRunning = true;
                     Instantiate(DemoVideoPrefab);
                 }
@@ -79,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     internal void StopDemo()
     {
+        AudioManager.Instance.SetDemo(false);
         isDemoRunning = false;
         lastClick = DateTime.Now;
         SceneManager.LoadScene(0);

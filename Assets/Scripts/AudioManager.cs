@@ -75,6 +75,18 @@ public class AudioManager : MonoBehaviour
         MusicPlayer.Play();
     }
 
+    internal void SetDemo(bool pus)
+    {
+        if (pus)
+        {
+            MusicPlayer.Pause();
+        }
+        else
+        {
+            MusicPlayer.Play();
+        }
+    }
+
     private void PlayEffect(string name)
     {
         effectPlayerNumber++;
