@@ -25,11 +25,7 @@ public class MenuManager : MonoBehaviour
 
     public void Start()
     {
-#if !UNITY_ANDROID
         StartCoroutine(GetImage(AndroidInstall));
-#else
-        Destroy(AndroidInstall);
-#endif
         AudioManager.Instance.PlayMenu();
         OnBack();
         if (GameManager.Instance.IsDemoActive)
@@ -55,7 +51,8 @@ public class MenuManager : MonoBehaviour
             yield return uwr.SendWebRequest();
             if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError("ERROR IN QR CODE IMG");
+                Debug.Log("ERROR IN QR CODE IMG");
+                Destroy(AndroidInstall);
             }
             else
             {
